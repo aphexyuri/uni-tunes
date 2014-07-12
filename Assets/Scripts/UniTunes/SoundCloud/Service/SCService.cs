@@ -15,7 +15,7 @@ public class SCService : MonoSingleton<SCService>
 		private WWW streamWWW;
 		private AudioSource audioSource;
 		
-		private Action<string> callBack;
+		private Action<string> logCallBack;
 		private Action<SCServiceResponse> serviceResponse;
 		
 		void Update()
@@ -29,8 +29,8 @@ public class SCService : MonoSingleton<SCService>
 		{
 			//Debug.Log(msg);
 			
-			if(callBack != null) {
-				callBack(msg);
+			if(logCallBack != null) {
+				logCallBack(msg);
 			}
 		}
 		
@@ -49,6 +49,10 @@ public class SCService : MonoSingleton<SCService>
 				streamWWW.Dispose();
 				streamWWW = null;
 			}
+			
+			//remove callbacks if any
+			if(serviceResponse != null) { serviceResponse = null; }
+			if(logCallBack != null) { logCallBack = null; }
 		}
 		
 		private IEnumerator Resolve(string urlToResolve, bool playOnSuccess)
@@ -133,9 +137,9 @@ public class SCService : MonoSingleton<SCService>
 		public void Resolve(string url, Action<SCServiceResponse> resolveCallback, Action<string> logCallback)
 		{
 			//set log callback if provided
-			if(logCallback != null) { callBack = logCallback; }
+			if(logCallback != null) { logCallBack = logCallback; }
 			
-			if(callBack != null) {
+			if(logCallBack != null) {
 				serviceResponse = resolveCallback;
 			}
 			
@@ -145,7 +149,7 @@ public class SCService : MonoSingleton<SCService>
 		public void ResolveAndPlay(string url, Action<string> logCallback)
 		{
 			//set log callback if provided
-			if(logCallback != null) { callBack = logCallback; }
+			if(logCallback != null) { logCallBack = logCallback; }
 			
 			StartCoroutine(Resolve(url, true));
 		}
