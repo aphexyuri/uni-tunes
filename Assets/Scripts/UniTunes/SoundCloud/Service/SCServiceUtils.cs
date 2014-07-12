@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class SoundCloudServiceUtils
+public class SCServiceUtils
 {
 	public static string AppendClientId(string baseUrl)
 	{

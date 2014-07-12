@@ -54,7 +54,7 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		private IEnumerator Resolve(string urlToResolve, bool playOnSuccess)
 		{
 				WWW request = new WWW(
-						SoundCloudServiceUtils.BuildEndpoint(SC_METHOD_RESOLVE,
+						SCServiceUtils.BuildEndpoint(SC_METHOD_RESOLVE,
 						new Dictionary<string, string>() {{"url", urlToResolve}}, true)
 				);
 				
@@ -88,7 +88,7 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		
 		private IEnumerator StreamTrack(string streamUrl)
 		{
-				streamUrl = SoundCloudServiceUtils.AppendClientId(streamUrl);
+				streamUrl = SCServiceUtils.AppendClientId(streamUrl);
 				
 				CallbackLog("StreamTrack: " + streamUrl);
 				
