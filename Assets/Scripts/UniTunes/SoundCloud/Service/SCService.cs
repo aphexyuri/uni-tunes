@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
-public class SoundCloudService : MonoSingleton<SoundCloudService>
+public class SCService : MonoSingleton<SCService>
 {
 		public static string CLIENT_ID = "344dc9bb8589e6c8b19ec142ea6a43af";
 		

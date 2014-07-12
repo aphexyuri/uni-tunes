@@ -5,19 +5,19 @@ public class SCServiceUtils
 	public static string AppendClientId(string baseUrl)
 	{
 		if(baseUrl.EndsWith("?")) {
-			return string.Concat(baseUrl, "client_id=", SoundCloudService.CLIENT_ID);
+			return string.Concat(baseUrl, "client_id=", SCService.CLIENT_ID);
 		}
 		else {
 			if(baseUrl.Contains("?")) {
-				return string.Concat(baseUrl, "&client_id=", SoundCloudService.CLIENT_ID);
+				return string.Concat(baseUrl, "&client_id=", SCService.CLIENT_ID);
 			}
-			return string.Concat(baseUrl, "?client_id=", SoundCloudService.CLIENT_ID);
+			return string.Concat(baseUrl, "?client_id=", SCService.CLIENT_ID);
 		}
 	}
 	
 	public static string BuildEndpoint(string scApiMethod, Dictionary<string, string> urlVars, bool appendClientId)
 	{
-		string endpoint = SoundCloudService.SOUNDCLOUD_API;
+		string endpoint = SCService.SOUNDCLOUD_API;
 		
 		if(!string.IsNullOrEmpty(scApiMethod)) {
 			endpoint = endpoint + scApiMethod;
