@@ -13,7 +13,7 @@ public class DebugGUI : MonoBehaviour
 		{
 			SCService.Instance.Resolve("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
 		}
-				
+		
 		if(GUI.Button(new Rect(0, 100, Screen.width, screenButtonHeight), "Resolve & Play"))
 		{
 			SCService.Instance.ResolveAndPlay("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);

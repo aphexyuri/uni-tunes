@@ -15,8 +15,8 @@ public class SCService : MonoSingleton<SCService>
 		private WWW streamWWW;
 		private AudioSource audioSource;
 		
-		private Action<string> logCallBack;
-		private Action<SCServiceResponse> serviceResponse;
+		private Action<string> _logCallback;
+		private Action<SCServiceResponse> _serviceCallback;
 		
 		void Update()
 		{
@@ -29,8 +29,8 @@ public class SCService : MonoSingleton<SCService>
 		{
 			//Debug.Log(msg);
 			
-			if(logCallBack != null) {
-				logCallBack(msg);
+			if(_logCallback != null) {
+				_logCallback(msg);
 			}
 		}
 		
@@ -51,8 +51,8 @@ public class SCService : MonoSingleton<SCService>
 			}
 			
 			//remove callbacks if any
-			if(serviceResponse != null) { serviceResponse = null; }
-			if(logCallBack != null) { logCallBack = null; }
+			if(_serviceCallback != null) { _serviceCallback = null; }
+			if(_logCallback != null) { _logCallback = null; }
 		}
 		
 		private IEnumerator Resolve(string urlToResolve, bool playOnSuccess)
@@ -72,7 +72,7 @@ public class SCService : MonoSingleton<SCService>
 						string errorString = string.Format("Error: {0} ({1})", request.error, urlToResolve);
 						
 						CallbackLog(errorString);
-						serviceResponse(new SCServiceResponse(false, errorString));
+						_serviceCallback(new SCServiceResponse(false, errorString));
 						
 						yield break;
 				}
@@ -85,7 +85,7 @@ public class SCService : MonoSingleton<SCService>
 							}
 						}
 						else {
-							serviceResponse(new SCServiceResponse(true, string.Empty, trackInfo));
+							_serviceCallback(new SCServiceResponse(true, string.Empty, trackInfo));
 						}
 				}
 		}
@@ -137,19 +137,21 @@ public class SCService : MonoSingleton<SCService>
 		public void Resolve(string url, Action<SCServiceResponse> resolveCallback, Action<string> logCallback)
 		{
 			//set log callback if provided
-			if(logCallback != null) { logCallBack = logCallback; }
+			if(logCallback != null) { _logCallback = logCallback; }
 			
-			if(logCallBack != null) {
-				serviceResponse = resolveCallback;
-			}
+			//set callback if provided
+			if(_logCallback != null) { _serviceCallback = resolveCallback; }
 			
 			StartCoroutine(Resolve(url, false));
 		}
 		
-		public void ResolveAndPlay(string url, Action<string> logCallback)
+		public void ResolveAndPlay(string url, Action<SCServiceResponse> resolveCallback, Action<string> logCallback)
 		{
 			//set log callback if provided
-			if(logCallback != null) { logCallBack = logCallback; }
+			if(logCallback != null) { _logCallback = logCallback; }
+			
+			//set callback if provided
+			if(_logCallback != null) { _serviceCallback = resolveCallback; }
 			
 			StartCoroutine(Resolve(url, true));
 		}
