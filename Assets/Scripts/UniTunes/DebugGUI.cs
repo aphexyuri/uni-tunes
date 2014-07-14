@@ -16,7 +16,7 @@ public class DebugGUI : MonoBehaviour
 		
 		if(GUI.Button(new Rect(0, 100, Screen.width, screenButtonHeight), "Resolve & Play"))
 		{
-			SCService.Instance.ResolveAndPlay("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
+//			SCService.Instance.ResolveAndPlay("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
 		}
 		
 		if(GUI.Button(new Rect(0, 200, Screen.width, screenButtonHeight), "Stop Playback"))

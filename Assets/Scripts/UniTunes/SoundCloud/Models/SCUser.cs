@@ -1,6 +1,6 @@
-﻿public class SoundCloudUser
+﻿public class SCUser
 {
-	public SoundCloudUser() {}
+	public SCUser() {}
 	
 	public string id;
 	public string kind;

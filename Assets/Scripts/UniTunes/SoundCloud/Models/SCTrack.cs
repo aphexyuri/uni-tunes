@@ -1,16 +1,22 @@
-﻿public class SoundCloudTrack
+﻿using UnityEngine;
+using System;
+
+[Serializable]
+public class SCTrack
 {
-	public SoundCloudTrack() {}
+	public SCTrack() {}
 	
 	public string id;
-	public string duration;
+	public int duration;
 	public bool streamable;
 	public bool downloadable;
+	public string sharing;
+	public string genre;
 	public string title;
 	public string description;
 	public string original_format;
 	public string license;
-	public SoundCloudUser user;
+	public SCUser user;
 	public string uri;
 	public string permalink_url;
 	public string artwork_url;

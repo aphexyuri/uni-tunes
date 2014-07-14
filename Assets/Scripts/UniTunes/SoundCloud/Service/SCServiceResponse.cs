@@ -5,9 +5,9 @@ public class SCServiceResponse : ISCResponse
 	private bool _success = false;
 	private string _errorMsg = string.Empty;
 	
-	private SoundCloudTrack _trackInfo;
+	private SCTrack _trackInfo;
 	
-	public SCServiceResponse(bool success, string eMsg, SoundCloudTrack track)
+	public SCServiceResponse(bool success, string eMsg, SCTrack track)
 	{
 		_success = success;
 		_errorMsg = eMsg;
@@ -31,7 +31,7 @@ public class SCServiceResponse : ISCResponse
 		get { return _errorMsg; }
 	}
 	
-	public SoundCloudTrack trackInfo {
+	public SCTrack trackInfo {
 		get { return _trackInfo; }
 	}
 }
