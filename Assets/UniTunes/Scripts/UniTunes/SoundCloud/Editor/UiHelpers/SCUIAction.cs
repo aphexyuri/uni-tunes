@@ -5,7 +5,10 @@
 		None,
 		Add,
 		Remove,
-		Play
+		Play,
+		Stop,
+		MoveUp,
+		MoveDown
 	}
 
 	private ControlAction _action = ControlAction.None;
@@ -28,5 +31,11 @@
 	{
 		get { return _data; }
 		set { _data = value; }
+	}
+
+	public void SetProps(ControlAction action, object data)
+	{
+		_action = action;
+		_data = data;
 	}
 }

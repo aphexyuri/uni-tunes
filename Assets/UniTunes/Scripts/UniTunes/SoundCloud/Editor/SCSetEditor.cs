@@ -7,10 +7,7 @@ using System.Linq;
 public class SCSetEditor : EditorWindow
 {
 	#region UI properties
-	public static int MIN_WINDOW_WIDTH = 400;
-	public static int MIN_WINDOW_HEIGHT = 400;
 	private Vector2 windowScrollPos;
-	
 	#endregion
 	
 	
@@ -27,7 +24,7 @@ public class SCSetEditor : EditorWindow
 		
 		if(win != null) {
 			win.title = "SoundCloud Set";
-			win.minSize = new Vector2(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT);
+			win.minSize = new Vector2(UniTunesConsts.MIN_WINDOW_WIDTH, UniTunesConsts.MIN_WINDOW_HEIGHT);
 		}
 	}
 	
@@ -39,6 +36,11 @@ public class SCSetEditor : EditorWindow
 	private static bool ValidateRTD ()
 	{
 		return !EditorApplication.isPlaying;
+	}
+
+	void OnDestroy()
+	{
+		UniTunesGUITexFactory.ClearTextures();
 	}
 	
 	private void Update()
@@ -55,7 +57,7 @@ public class SCSetEditor : EditorWindow
 
 //		SCService.Instance.IterateResolve();
 	}
-
+	
 	private void OnGUI()
 	{
 		//render the default ui items
@@ -79,11 +81,23 @@ public class SCSetEditor : EditorWindow
 				switch(trackUiAction.Action) {
 
 				case SCUIAction.ControlAction.Play:
-					SCService.Instance.StreamTrack(((SCTrack) trackUiAction.Data).stream_url);
+					SCService.Instance.StreamTrack(((SCTrack) trackUiAction.Data));
+					break;
+				
+				case SCUIAction.ControlAction.Stop:
+					SCService.Instance.StopPlayback();
 					break;
 
 				case SCUIAction.ControlAction.Remove:
 					scSet.RemoveTrack((SCTrack) trackUiAction.Data);
+					break;
+
+				case SCUIAction.ControlAction.MoveUp:
+					scSet.Move((SCTrack) trackUiAction.Data, -1);
+					break;
+
+				case SCUIAction.ControlAction.MoveDown:
+					scSet.Move((SCTrack) trackUiAction.Data, 1);
 					break;
 
 				default:

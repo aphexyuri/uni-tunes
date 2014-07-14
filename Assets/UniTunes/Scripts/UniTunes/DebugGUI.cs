@@ -21,7 +21,7 @@ public class DebugGUI : MonoBehaviour
 		
 		if(GUI.Button(new Rect(0, 200, Screen.width, screenButtonHeight), "Stop Playback"))
 		{
-			SCService.Instance.StopCurrentStreamPlayback();
+			SCService.Instance.StopPlayback();
 		}
 		
 		GUI.TextArea(new Rect(0, Screen.height - 300, Screen.width, 300), logLine);

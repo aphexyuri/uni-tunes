@@ -50,5 +50,10 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
     {
         m_Instance = null;
     }
+
+	protected static void ForceNullInstance()
+	{
+		m_Instance = null;
+	}
 }
 

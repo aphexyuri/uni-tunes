@@ -32,4 +32,30 @@ public class SCSet : ScriptableObject
 
 		tracks.Remove(track);
 	}
+
+	public void Move(SCTrack track, int direction)
+	{
+		int oldIndex = tracks.IndexOf(track);
+		int maxIndex = tracks.Count - 1;
+		int newIndex = (direction > 0 ? oldIndex + 1 : oldIndex - 1);
+
+		if(direction < 0) {
+			//decreasing index
+			if(oldIndex < 1) {
+				//can't move before zero
+				return;
+			}
+		}
+		else if(direction > 0) {
+			//increasing index
+			if(oldIndex >= maxIndex) {
+				//can't move past end
+				return;
+			}
+		}
+
+		SCTrack item = tracks[oldIndex];
+		tracks.RemoveAt(oldIndex);
+		tracks.Insert(newIndex, item);
+	}
 }

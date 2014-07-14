@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Swing.Editor;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(AudioSource))]
 public class SCService : MonoSingleton<SCService>
 {
@@ -18,14 +19,35 @@ public class SCService : MonoSingleton<SCService>
 	
 	private Action<string> _logCallback;
 	private Action<SCServiceResponse> _serviceCallback;
-	
+
+	//track currently being played
+	private SCTrack _playbackTrack;
+
+
+	#region Getters/Setters
+	public SCTrack PlaybackTrack
+	{
+		get { return _playbackTrack; }
+	}
+	#endregion
+
+
+	#region Unity Lifecyclwe
 	void Update()
 	{
 		if(audioSource != null && !audioSource.isPlaying) {
 			DisposeAudioSource();
 		}
 	}
-		
+
+	//adding this hack together with [ExecuteInEditMode] to avoid reference loss on manual gameobject deletion
+	void OnDestroy()
+	{
+		SCService.ForceNullInstance();
+	}
+	#endregion
+
+
 	private void CallbackLog(string msg)
 	{
 		Debug.Log(msg);
@@ -37,6 +59,8 @@ public class SCService : MonoSingleton<SCService>
 	
 	private void DisposeAudioSource()
 	{
+		_playbackTrack = null;
+
 		if(audioSource == null) { return; }
 		
 		if(audioSource.isPlaying) {
@@ -92,7 +116,7 @@ public class SCService : MonoSingleton<SCService>
 			yield break;
 		}
 		else {
-			//CallbackLog(System.Text.Encoding.UTF8.GetString(request.bytes));
+			CallbackLog(System.Text.Encoding.UTF8.GetString(request.bytes));
 
 			SCTrack trackInfo = JsonFx.Json.JsonReader.Deserialize<SCTrack>(System.Text.Encoding.UTF8.GetString(request.bytes));
 
@@ -102,7 +126,7 @@ public class SCService : MonoSingleton<SCService>
 				}
 
 				if(playOnSuccess) {
-					StartCoroutine(StreamTrackRoutine(trackInfo.stream_url));
+					StartCoroutine(StreamTrackRoutine(trackInfo));
 				}
 			}
 			else {
@@ -114,9 +138,18 @@ public class SCService : MonoSingleton<SCService>
 		}
 	}
 	
-	private IEnumerator StreamTrackRoutine(string streamUrl)
+	private IEnumerator StreamTrackRoutine(SCTrack track)
 	{
-		streamUrl = SCServiceUtils.AppendClientId(streamUrl);
+		if(Instance == null) {
+			Debug.Log("Instance is null");
+		}
+
+		if(gameObject == null) {
+			Debug.Log("gameobject is not active");
+		}
+		
+		string streamUrl = SCServiceUtils.AppendClientId(track.stream_url);
+		streamUrl = SCServiceUtils.AppendClientId(track.stream_url);
 		
 		CallbackLog("StreamTrack: " + streamUrl);
 		
@@ -140,6 +173,8 @@ public class SCService : MonoSingleton<SCService>
 			//CallbackLog("...clip not ready to play yet " + (int) (streamWWW.progress*100) + "%");
 			yield return new WaitForSeconds(0.1f);
 		}
+
+		_playbackTrack = track;
 		
 		CallbackLog("audioClip.isReadyToPlay:" + audioClip.isReadyToPlay);
 		CallbackLog("audioClip.length:" + audioClip.length);
@@ -169,9 +204,10 @@ public class SCService : MonoSingleton<SCService>
 		EditorCoroutine.start(ResolveRoutine(url, false));
 	}
 
-	public void StreamTrack(string url)
+	public void StreamTrack(SCTrack track)
 	{
-		EditorCoroutine.start(StreamTrackRoutine(url));
+//		StartCoroutine(StreamTrackRoutine(track));
+		EditorCoroutine.start(StreamTrackRoutine(track));
 	}
 	
 //	public void ResolveAndPlay(string url, Action<SCServiceResponse> resolveCallback, Action<string> logCallback)
@@ -186,7 +222,7 @@ public class SCService : MonoSingleton<SCService>
 //		StartCoroutine(ResolveRoutine(url, true));
 //	}
 	
-	public void StopCurrentStreamPlayback()
+	public void StopPlayback()
 	{
 		DisposeAudioSource();
 	}
