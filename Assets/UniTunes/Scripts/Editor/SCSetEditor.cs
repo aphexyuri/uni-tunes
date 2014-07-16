@@ -46,16 +46,15 @@ public class SCSetEditor : EditorWindow
 	private void Update()
 	{
 		if(scSet == null) {
-			scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesUtils.GetSCConfigPath(), typeof(SCSet));
+			scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_PATH, typeof(SCSet));
 
 			//if the set is still null, create a new config file
 			if(scSet == null) {
+				Debug.Log("creating new scSEt");
 				scSet = ScriptableObject.CreateInstance<SCSet>();
-				AssetDatabase.CreateAsset(scSet, UniTunesUtils.GetSCConfigPath());
+				AssetDatabase.CreateAsset(scSet, UniTunesConsts.SC_CONFIG_PATH);
 			}
 		}
-
-//		SCService.Instance.IterateResolve();
 	}
 	
 	private void OnGUI()
@@ -66,7 +65,7 @@ public class SCSetEditor : EditorWindow
 		switch(uiAction.Action) {
 
 		case SCUIAction.ControlAction.Add:
-			SCService.Instance.Resolve((string) uiAction.Data, OnResolveCallback, null);
+			SoundCloudService.Instance.Resolve((string) uiAction.Data, OnResolveCallback, null);
 			break;
 
 		default:
@@ -81,11 +80,11 @@ public class SCSetEditor : EditorWindow
 				switch(trackUiAction.Action) {
 
 				case SCUIAction.ControlAction.Play:
-					SCService.Instance.StreamTrack(((SCTrack) trackUiAction.Data));
+					SoundCloudService.Instance.StreamTrack(((SCTrack) trackUiAction.Data));
 					break;
 				
 				case SCUIAction.ControlAction.Stop:
-					SCService.Instance.StopPlayback();
+					SoundCloudService.Instance.StopPlayback();
 					break;
 
 				case SCUIAction.ControlAction.Remove:
@@ -102,6 +101,10 @@ public class SCSetEditor : EditorWindow
 
 				default:
 					break;
+				}
+
+				if(scSet != null) {
+					EditorUtility.SetDirty(scSet);
 				}
 			}
 			EditorGUILayout.EndScrollView();

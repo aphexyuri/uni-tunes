@@ -8,6 +8,8 @@ public class SCSet : ScriptableObject
 //	[HideInInspector]
 	public List<SCTrack> tracks;
 
+	public bool loopPlaylist;
+
 	public bool AddTrack(SCTrack track)
 	{
 		if(tracks == null) {

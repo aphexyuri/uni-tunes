@@ -35,7 +35,7 @@ public static class UniTunesGUITexFactory
 		if(removeBtn == null) {
 			//do the loading
 			removeBtn = new Texture2D(55, 55);
-			removeBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_remove.png"));
+			removeBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_remove.png")));
 		}
 		
 		return removeBtn;
@@ -46,7 +46,7 @@ public static class UniTunesGUITexFactory
 		if(playBtn == null) {
 			//do the loading
 			playBtn = new Texture2D(55, 55);
-			playBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_play.png"));
+			playBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_play.png")));
 		}
 
 		return playBtn;
@@ -57,7 +57,7 @@ public static class UniTunesGUITexFactory
 		if(stopBtn == null) {
 			//do the loading
 			stopBtn = new Texture2D(55, 55);
-			stopBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_stop.png"));
+			stopBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_stop.png")));
 		}
 		
 		return stopBtn;
@@ -68,7 +68,7 @@ public static class UniTunesGUITexFactory
 		if(upBtn == null) {
 			//do the loading
 			upBtn = new Texture2D(55, 55);
-			upBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_up.png"));
+			upBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_up.png")));
 		}
 		
 		return upBtn;
@@ -79,7 +79,7 @@ public static class UniTunesGUITexFactory
 		if(downBtn == null) {
 			//do the loading
 			downBtn = new Texture2D(55, 55);
-			downBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_down.png"));
+			downBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_down.png")));
 		}
 		
 		return downBtn;
@@ -90,7 +90,7 @@ public static class UniTunesGUITexFactory
 		if(downFullBtn == null) {
 			//do the loading
 			downFullBtn = new Texture2D(55, 55);
-			downFullBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_down_full.png"));
+			downFullBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_down_full.png")));
 		}
 		
 		return downFullBtn;
@@ -101,7 +101,7 @@ public static class UniTunesGUITexFactory
 		if(upFullBtn == null) {
 			//do the loading
 			upFullBtn = new Texture2D(55, 55);
-			upFullBtn.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_up_full.png"));
+			upFullBtn.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_up_full.png")));
 		}
 		
 		return upFullBtn;
@@ -112,7 +112,7 @@ public static class UniTunesGUITexFactory
 		if(upDownBlank == null) {
 			//do the loading
 			upDownBlank = new Texture2D(55, 55);
-			upDownBlank.LoadImage(GetImageData("Assets/UniTunes/GUITextures/btn_up_down_blank.png"));
+			upDownBlank.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "btn_up_down_blank.png")));
 		}
 		
 		return upDownBlank;

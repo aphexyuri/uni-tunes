@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 
@@ -52,7 +52,7 @@ public static class RenderSCTracks
 				EditorGUILayout.EndVertical();
 
 				//stop/play btn
-				if(SCService.Instance.PlaybackTrack != null && track.id == SCService.Instance.PlaybackTrack.id) {
+				if(SoundCloudService.Instance.PlaybackTrack != null && track.id == SoundCloudService.Instance.PlaybackTrack.id) {
 					if(GUILayout.Button(UniTunesGUITexFactory.GetStopBtnTexture(), GUIStyle.none)) {
 						returnAction.SetProps(SCUIAction.ControlAction.Stop, track);
 					}

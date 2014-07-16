@@ -5,6 +5,10 @@
 
 	public static string TEST_TRACK = "https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo";
 
+	public static string EDITOR_TEXTURE_PATH = "Assets/UniTunes/Textures/Editor";
+	public static string EDITOR_TEXTURE_SCPLAYER = "Assets/UniTunes/Textures/SCPlayer";
+	public static string SC_CONFIG_PATH = "Assets/UniTunes/SCConfig.asset";
+
 	public static string EN_NOT_AVAILABLE_PLAYBACK = "Editing not available during playback";
 	public static string EN_ADD_TRACK_TO_SET = "Add Track to Set (Provide URL)";
 	public static string EN_TRACK_ALREADY_ADDED_TITLE = "Track not added";

@@ -7,7 +7,7 @@ public class SCTrack
 	public SCTrack() {}
 	
 	public string id;
-	public long duration;
+	public int duration;
 	public bool streamable;
 	public bool downloadable;
 	public string sharing;
@@ -24,7 +24,7 @@ public class SCTrack
 	public string waveform_url;
 	public string download_url;
 
-	public string FormattedTime(long seconds)
+	public string FormattedTime(int seconds)
 	{
 		TimeSpan ts = System.TimeSpan.FromMilliseconds(seconds);
 		string timeString = string.Format("{0:D2}:{1:D2}:{2:D2}", ts.Hours, ts.Minutes, ts.Seconds);

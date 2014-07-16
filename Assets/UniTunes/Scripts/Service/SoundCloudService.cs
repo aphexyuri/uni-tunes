@@ -2,11 +2,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Swing.Editor;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(AudioSource))]
-public class SCService : MonoSingleton<SCService>
+public class SoundCloudService : MonoSingleton<SoundCloudService>
 {
 	public static string CLIENT_ID = "344dc9bb8589e6c8b19ec142ea6a43af";
 	
@@ -43,7 +42,7 @@ public class SCService : MonoSingleton<SCService>
 	//adding this hack together with [ExecuteInEditMode] to avoid reference loss on manual gameobject deletion
 	void OnDestroy()
 	{
-		SCService.ForceNullInstance();
+		SoundCloudService.ForceNullInstance();
 	}
 	#endregion
 
@@ -202,12 +201,13 @@ public class SCService : MonoSingleton<SCService>
 		if(logCallback != null) { _logCallback = logCallback; }
 		
 		EditorCoroutine.start(ResolveRoutine(url, false));
+//		StartCoroutine(ResolveRoutine(url, false));
 	}
 
 	public void StreamTrack(SCTrack track)
 	{
-//		StartCoroutine(StreamTrackRoutine(track));
 		EditorCoroutine.start(StreamTrackRoutine(track));
+//		StartCoroutine(StreamTrackRoutine(track));
 	}
 	
 //	public void ResolveAndPlay(string url, Action<SCServiceResponse> resolveCallback, Action<string> logCallback)

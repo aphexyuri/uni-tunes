@@ -27,6 +27,8 @@ public static class RenderSCAddTrack
 				GUI.color = Color.white;
 			}
 			EditorGUILayout.EndHorizontal();
+
+			scSet.loopPlaylist = EditorGUILayout.Toggle("Loop Playlist", scSet.loopPlaylist);
 		}
 
 		return returnAction;
