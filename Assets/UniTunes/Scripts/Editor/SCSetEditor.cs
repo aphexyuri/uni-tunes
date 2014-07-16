@@ -109,6 +109,8 @@ public class SCSetEditor : EditorWindow
 			}
 			EditorGUILayout.EndScrollView();
 		}
+
+		Repaint();
 	}
 	#endregion
 

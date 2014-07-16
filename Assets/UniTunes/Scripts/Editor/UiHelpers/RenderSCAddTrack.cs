@@ -9,6 +9,8 @@ public static class RenderSCAddTrack
 	{
 		SCUIAction returnAction = new SCUIAction(SCUIAction.ControlAction.None, null);
 
+		if(scSet == null) { return returnAction; }
+
 		if(EditorApplication.isPlaying) {
 			GUILayout.Label(UniTunesConsts.EN_NOT_AVAILABLE_PLAYBACK, EditorStyles.boldLabel);
 		}
