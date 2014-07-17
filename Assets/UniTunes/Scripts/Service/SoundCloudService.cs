@@ -7,12 +7,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(AudioSource))]
 public class SoundCloudService : MonoSingleton<SoundCloudService>
 {
-	public static string CLIENT_ID = "344dc9bb8589e6c8b19ec142ea6a43af";
-	
-	public static string SOUNDCLOUD_API = "https://api.soundcloud.com";
-	
-	private static string SC_METHOD_RESOLVE = "/resolve.json";
-	
+	public delegate void OnServiceStatusChange(ServiceStatus status);
+	public static event OnServiceStatusChange OnServiceStatusChangeEvt;
+
 	private WWW streamWWW;
 	private AudioSource audioSource;
 	
@@ -22,11 +19,30 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 	//track currently being played
 	private SCTrack _playbackTrack;
 
+	private ServiceStatus _status = ServiceStatus.Ready;
+
+	public enum ServiceStatus
+	{
+		Ready,
+		Busy
+	}
+
 
 	#region Getters/Setters
 	public SCTrack PlaybackTrack
 	{
 		get { return _playbackTrack; }
+	}
+
+	public ServiceStatus Status
+	{
+		get { return _status; }
+		private set {
+			_status = value;
+
+			//send out status change event
+			if(OnServiceStatusChangeEvt != null) { OnServiceStatusChangeEvt(_status); }
+		}
 	}
 	#endregion
 
@@ -81,8 +97,6 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 	
 	private IEnumerator ResolveRoutine(string urlToResolve, bool playOnSuccess)
 	{
-		CallbackLog("Resolve routine: " + urlToResolve);
-
 		#if UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3
 		WWW request = new WWW(
 			SCServiceUtils.BuildEndpoint(SC_METHOD_RESOLVE,
@@ -90,15 +104,13 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		);
 		#else
 		WWW request = new WWW(
-			SCServiceUtils.BuildEndpoint(SC_METHOD_RESOLVE,
+			SCServiceUtils.BuildEndpoint(UniTunesConsts.SC_METHOD_RESOLVE,
 			new Dictionary<string, string>() {{"url", urlToResolve}}, true)
 		);
 		#endif
 		
 		//wait for request to complete
 		while(!request.isDone) {
-			//CallbackLog("Waiting for Resolve");
-
 			yield return new WaitForSeconds(0.1f);
 		}
 
@@ -142,15 +154,11 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		if(Instance == null) {
 			Debug.Log("Instance is null");
 		}
-
-		if(gameObject == null) {
-			Debug.Log("gameobject is not active");
-		}
+		
+		Status = ServiceStatus.Busy;
 		
 		string streamUrl = SCServiceUtils.AppendClientId(track.stream_url);
 		streamUrl = SCServiceUtils.AppendClientId(track.stream_url);
-		
-		CallbackLog("StreamTrack: " + streamUrl);
 		
 		streamWWW = new WWW(streamUrl);
 		
@@ -160,30 +168,27 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		}
 		
 		while(streamWWW.progress < 0.2) {
-			//CallbackLog("...buffering " + (int) (request.progress*100) + "%");
 			yield return new WaitForSeconds(0.1f);
 		}
-		
-		//Log("Buffering Complete!");
 		
 		AudioClip audioClip = streamWWW.GetAudioClip(true, true, AudioType.MPEG);
 		
 		while(!audioClip.isReadyToPlay) {
-			//CallbackLog("...clip not ready to play yet " + (int) (streamWWW.progress*100) + "%");
 			yield return new WaitForSeconds(0.1f);
 		}
 
 		_playbackTrack = track;
 		
-		CallbackLog("audioClip.isReadyToPlay:" + audioClip.isReadyToPlay);
-		CallbackLog("audioClip.length:" + audioClip.length);
-		CallbackLog("audioClip.samples:" + audioClip.samples);
-		CallbackLog("audioClip name: " + audioClip.name);
+//		CallbackLog("audioClip.isReadyToPlay:" + audioClip.isReadyToPlay);
+//		CallbackLog("audioClip.length:" + audioClip.length);
+//		CallbackLog("audioClip.samples:" + audioClip.samples);
 		
 		//audioSource = gameObject.AddComponent<AudioSource>(); //auto component via annotation
 		audioSource = audio;
 		audioSource.clip = audioClip;
 		audioSource.Play();
+
+		Status = ServiceStatus.Ready;
 	}
 	
 	#region public API
@@ -200,14 +205,25 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		//set log callback if provided
 		if(logCallback != null) { _logCallback = logCallback; }
 		
+#if UNITY_EDITOR
 		EditorCoroutine.start(ResolveRoutine(url, false));
-//		StartCoroutine(ResolveRoutine(url, false));
+#else
+		StartCoroutine(ResolveRoutine(url, false));
+#endif
 	}
 
 	public void StreamTrack(SCTrack track)
 	{
+		if(Status == ServiceStatus.Busy) {
+			Debug.LogWarning("Service is busy - ignoring request");
+			return;
+		}
+
+#if UNITY_EDITOR
 		EditorCoroutine.start(StreamTrackRoutine(track));
-//		StartCoroutine(StreamTrackRoutine(track));
+#else
+		StartCoroutine(StreamTrackRoutine(track));
+#endif
 	}
 	
 //	public void ResolveAndPlay(string url, Action<SCServiceResponse> resolveCallback, Action<string> logCallback)
@@ -226,7 +242,6 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 	{
 		DisposeAudioSource();
 	}
-	
 	
 //	public void IterateResolve()
 //	{

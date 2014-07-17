@@ -5,19 +5,105 @@ using System.Text.RegularExpressions;
 public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 {
 	private SCSet _scSet;
-	private ISCPlayer _playerWdget;
+	private ISCPlayer _playerWidget;
 
+	private int _currentPlayIndex = -1;
+
+	public Docking widgetDocking = Docking.TopRight;
+
+	public enum Docking
+	{
+		TopCentre,
+		TopLeft,
+		TopRight,
+		BottomCentre,
+		BottomLeft,
+		BottomRight
+	}
+
+	#region Unity Lifecycle
 	void Start()
 	{
 		LoadSet();
 	}
 
+	void OnEnable()
+	{
+		SpriteSCPlayer.OnPauseBtnPressedEvt += OnPauseBtnPressed;
+		SpriteSCPlayer.OnPlayNextBtnPressedEvt += OnPlayNextBtnPressed;
+		SoundCloudService.OnServiceStatusChangeEvt += OnServiceStatusChange;
+	}
+
+
+	
+	void OnDisable()
+	{
+		SpriteSCPlayer.OnPauseBtnPressedEvt -= OnPauseBtnPressed;
+		SpriteSCPlayer.OnPlayNextBtnPressedEvt -= OnPlayNextBtnPressed;
+		SoundCloudService.OnServiceStatusChangeEvt -= OnServiceStatusChange;
+	}
+	#endregion
+
+
+	#region GettersSetters
+	#endregion
+
+
+	#region event handlers
+	private void OnPauseBtnPressed()
+	{
+		if(_currentPlayIndex == -1) {
+			PlaySet();
+			return;
+		}
+
+		SoundCloudService.Instance.StopPlayback();
+	}
+
+	private void OnPlayNextBtnPressed()
+	{
+		if(_currentPlayIndex == -1) {
+			PlaySet();
+			return;
+		}
+
+		//if we're at the last track and looping is enabled, start at first track
+		if(_currentPlayIndex == (_scSet.tracks.Count - 1)) {
+			if(_scSet.loopPlaylist) {
+				_currentPlayIndex = 0;
+			}
+		}
+		else {
+			_currentPlayIndex ++;
+		}
+
+		SCTrack nextTrack = _scSet.GetTrackAtIndex(_currentPlayIndex);
+		if(nextTrack != null) {
+			SoundCloudService.Instance.StreamTrack(nextTrack);
+		}
+	}
+
+	void OnServiceStatusChange(SoundCloudService.ServiceStatus status)
+	{
+		_playerWidget.SetTrackInfo(SoundCloudService.Instance.PlaybackTrack);
+	}
+	#endregion
+
+
+	#region public API
 	public void LoadSet()
 	{
 		_scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_PATH, typeof(SCSet));
-		
+
+		//makde sure the laod was successful
 		if(_scSet == null) {
 			Debug.LogWarning("SoundCloudPlayer: failed to load SCSet");
+			return;
+		}
+
+		//make sure we have tracks in the set
+		if(_scSet.tracks.Count < 1) {
+			Debug.LogWarning("SoundCloudPlayer: No tracks in Set");
 			return;
 		}
 
@@ -28,12 +114,22 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 
 		//2D & sprites are not supported prior to 4.3...so we use UnityGUI in that case
 		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
-//			_playerWdget = new GUISCPlayer();
-			gameObject.AddComponent<GUISCPlayer>();
+			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
 		}
 		else {
-//			_playerWdget = new SpriteSCPlayer();
-			gameObject.AddComponent<SpriteSCPlayer>();
+			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
 		}
 	}
+
+	public void PlaySet()
+	{
+		if(_scSet != null) {
+			_currentPlayIndex = 0;
+			SCTrack firstTrack = _scSet.GetTrackAtIndex(_currentPlayIndex);
+			if(firstTrack != null) {
+				SoundCloudService.Instance.StreamTrack(firstTrack);
+			}
+		}
+	}
+	#endregion
 }

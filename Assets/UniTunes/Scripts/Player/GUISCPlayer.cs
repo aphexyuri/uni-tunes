@@ -3,8 +3,29 @@ using System.Collections;
 
 public class GUISCPlayer : MonoBehaviour, ISCPlayer
 {
-	void Start()
+//	public delegate void OnPlayNextBtnPressed();
+//	public static event OnPlayNextBtnPressed OnPlayNextBtnPressedEvt;
+	
+//	public delegate void OnPauseBtnPressed();
+//	public static event OnPauseBtnPressed OnPauseBtnPressedEvt;
+
+//	private string trackTitle; // "Boom boom \n boom track title here";
+//	private string trackOwner; // "Markus Workstorm and The Wailers";
+//	private string url; // "http://www.google.com";
+
+	#region public API
+//	public void ClearTrackInfo()
+//	{
+//		trackTitle = string.Empty;
+//		trackOwner = string.Empty;
+//		url = string.Empty;
+//	}
+
+	public void SetTrackInfo(SCTrack track)
 	{
-		Debug.Log("GUISCPlayer.Start()");
+//		trackTitle = track.title;
+//		trackOwner = track.user.username;
+//		url = track.uri;
 	}
+	#endregion
 }

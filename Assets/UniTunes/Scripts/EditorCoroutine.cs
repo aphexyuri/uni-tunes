@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,12 +23,10 @@ public class EditorCoroutine
 
 	void start()
 	{
-		//Debug.Log("start");
 		EditorApplication.update += update;
 	}
 	public void stop()
 	{
-		//Debug.Log("stop");
 		EditorApplication.update -= update;
 	}
 
@@ -45,3 +44,4 @@ public class EditorCoroutine
 		}
 	}
 }
+#endif

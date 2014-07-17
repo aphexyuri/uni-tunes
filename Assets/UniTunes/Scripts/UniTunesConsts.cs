@@ -3,7 +3,10 @@
 	public static int MIN_WINDOW_WIDTH = 600;
 	public static int MIN_WINDOW_HEIGHT = 400;
 
-	public static string TEST_TRACK = "https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo";
+	public static string SC_CLIENT_ID = "344dc9bb8589e6c8b19ec142ea6a43af";
+	public static string SC_API = "https://api.soundcloud.com";
+	public static string SC_TEST_TRACK = "https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo";
+	public static string SC_METHOD_RESOLVE = "/resolve.json";
 
 	public static string EDITOR_TEXTURE_PATH = "Assets/UniTunes/Textures/Editor";
 	public static string EDITOR_TEXTURE_SCPLAYER = "Assets/UniTunes/Textures/SCPlayer";
