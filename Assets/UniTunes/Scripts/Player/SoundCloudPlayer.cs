@@ -24,7 +24,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	#region Unity Lifecycle
 	void Start()
 	{
-		LoadSet();
+		LoadSet(false);
 	}
 
 	void OnEnable()
@@ -91,7 +91,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 
 
 	#region public API
-	public void LoadSet()
+	public void LoadSet(bool autoPlay)
 	{
 		_scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_PATH, typeof(SCSet));
 
