@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 
-public static class UniTunesGUITexFactory
+public static class UniTunesGUITextFactory
 {
 	public static Texture2D playBtn;
 	public static Texture2D stopBtn;

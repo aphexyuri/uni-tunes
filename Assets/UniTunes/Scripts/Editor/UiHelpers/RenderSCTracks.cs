@@ -19,30 +19,30 @@ public static class RenderSCTracks
 					GUILayout.FlexibleSpace();
 					if(scSet.tracks.Count == 1) {
 						//draw blank
-						if(GUILayout.Button(UniTunesGUITexFactory.GetUpDownBlankTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+						if(GUILayout.Button(UniTunesGUITextFactory.GetUpDownBlankTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 							//do nothing
 						}
 					}
 					else {
 						if(index == 0) {
 							//no up btn
-							if(GUILayout.Button(UniTunesGUITexFactory.GetDownFullBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+							if(GUILayout.Button(UniTunesGUITextFactory.GetDownFullBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 								returnAction.SetProps(SCUIAction.ControlAction.MoveDown, track);
 							}
 						}
 						else if(index == scSet.tracks.Count - 1) {
 							//no down btn
-							if(GUILayout.Button(UniTunesGUITexFactory.GetUpFullBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+							if(GUILayout.Button(UniTunesGUITextFactory.GetUpFullBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 								returnAction.SetProps(SCUIAction.ControlAction.MoveUp, track);
 							}
 						}
 						else {
 							//draw both
-							if(GUILayout.Button(UniTunesGUITexFactory.GetUpBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+							if(GUILayout.Button(UniTunesGUITextFactory.GetUpBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 								returnAction.SetProps(SCUIAction.ControlAction.MoveUp, track);
 							}
 
-							if(GUILayout.Button(UniTunesGUITexFactory.GetDownBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+							if(GUILayout.Button(UniTunesGUITextFactory.GetDownBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 								returnAction.SetProps(SCUIAction.ControlAction.MoveDown, track);
 							}
 						}
@@ -53,12 +53,12 @@ public static class RenderSCTracks
 
 				//stop/play btn
 				if(SoundCloudService.Instance.PlaybackTrack != null && track.id == SoundCloudService.Instance.PlaybackTrack.id) {
-					if(GUILayout.Button(UniTunesGUITexFactory.GetStopBtnTexture(), GUIStyle.none)) {
+					if(GUILayout.Button(UniTunesGUITextFactory.GetStopBtnTexture(), GUIStyle.none)) {
 						returnAction.SetProps(SCUIAction.ControlAction.Stop, track);
 					}
 				}
 				else {
-					if(GUILayout.Button(UniTunesGUITexFactory.GetPlayBtnTexture(), GUIStyle.none)) {
+					if(GUILayout.Button(UniTunesGUITextFactory.GetPlayBtnTexture(), GUIStyle.none)) {
 						returnAction.SetProps(SCUIAction.ControlAction.Play, track);
 					}
 				}
@@ -79,7 +79,7 @@ public static class RenderSCTracks
 				EditorGUILayout.EndVertical();
 
 				//remove btn
-				if(GUILayout.Button(UniTunesGUITexFactory.GetRemoveBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+				if(GUILayout.Button(UniTunesGUITextFactory.GetRemoveBtnTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 					returnAction.SetProps(SCUIAction.ControlAction.Remove, track);
 				}
 			}
