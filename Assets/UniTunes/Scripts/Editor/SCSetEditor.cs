@@ -40,7 +40,7 @@ public class SCSetEditor : EditorWindow
 
 	void OnDestroy()
 	{
-		UniTunesGUITexFactory.ClearTextures();
+		UniTunesGUITextFactory.ClearTextures();
 	}
 	
 	private void Update()
