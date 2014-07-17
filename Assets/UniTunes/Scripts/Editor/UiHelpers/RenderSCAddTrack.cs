@@ -3,7 +3,7 @@ using UnityEditor;
 
 public static class RenderSCAddTrack
 {
-	private static string publicUrl = UniTunesConsts.SC_TEST_TRACK;
+	private static string publicUrl = string.Empty;
 
 	public static SCUIAction RenderUI(SCSet scSet)
 	{

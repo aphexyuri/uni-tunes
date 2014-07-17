@@ -142,7 +142,7 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 	public void SetTrackInfo(SCTrack track)
 	{
 		if(track == null ) {
-			trackTitle = string.Empty;
+			trackTitle = UniTunesConsts.EN_WAITING_FOR_STREAM;
 			trackOwner = string.Empty;
 			url = string.Empty;
 		}

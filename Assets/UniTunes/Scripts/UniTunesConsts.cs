@@ -18,6 +18,7 @@
 	public static string EN_TRACK_ALREADY_ADDED_MSG = "The track was already added to your Set";
 	public static string EN_RESOLVE_FAIL_TITLE = "Track not found";
 	public static string EN_RESOLVE_FAIL_MSG = "The provided URL was not found on SoundCloud or is not set as 'public'.\n\nPlease verify the provided URL, and try again.";
+	public static string EN_WAITING_FOR_STREAM = "WAITING FOR\nAUDIO STREAM...";
 
 	public static string EN_BTN_PLAY = "Play";
 	public static string EN_BTN_STOP = "Stop";
