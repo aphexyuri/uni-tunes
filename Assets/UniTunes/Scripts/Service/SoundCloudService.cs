@@ -171,7 +171,7 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 			yield return new WaitForSeconds(0.1f);
 		}
 		
-		AudioClip audioClip = streamWWW.GetAudioClip(true, true, AudioType.MPEG);
+		AudioClip audioClip = streamWWW.GetAudioClip(false, true, AudioType.MPEG);
 		
 		while(!audioClip.isReadyToPlay) {
 			yield return new WaitForSeconds(0.1f);
