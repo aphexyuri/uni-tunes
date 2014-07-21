@@ -1,4 +1,7 @@
-﻿public static class UniTunesConsts
+﻿using UnityEngine;
+using System.IO;
+
+public static class UniTunesConsts
 {
 	public static int MIN_WINDOW_WIDTH = 600;
 	public static int MIN_WINDOW_HEIGHT = 400;
@@ -10,7 +13,7 @@
 
 	public static string EDITOR_TEXTURE_PATH = "Assets/UniTunes/Textures/Editor";
 	public static string EDITOR_TEXTURE_SCPLAYER = "Assets/UniTunes/Textures/SCPlayer";
-	public static string SC_CONFIG_PATH = "Assets/UniTunes/SCConfig.asset";
+	public static string SC_CONFIG_FILE = "Assets/UniTunes/SCConfig.asset";
 
 	public static string EN_NOT_AVAILABLE_PLAYBACK = "Editing not available during playback";
 	public static string EN_ADD_TRACK_TO_SET = "Add Track to Set (Provide URL)";
@@ -24,4 +27,13 @@
 	public static string EN_BTN_STOP = "Stop";
 	public static string EN_BTN_REMOVE = "Remove";
 	public static string EN_BTN_VALIDATE_ADD = "Validate & Add";
+
+	public static string ConfigPath()
+	{
+		if(!Directory.Exists(Application.streamingAssetsPath)) {
+			Directory.CreateDirectory(Application.streamingAssetsPath);
+		}
+
+		return Path.Combine(Application.streamingAssetsPath, SC_CONFIG_FILE);
+	}
 }

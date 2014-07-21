@@ -39,8 +39,8 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 
 	private void SetTrackInfo()
 	{
-		Vector3 titlePos = titleTextMesh.transform.position;
-		Vector3 ownerPos = ownerTextMesh.transform.position;
+		Vector3 titlePos = titleTextMesh.transform.localPosition;
+		Vector3 ownerPos = ownerTextMesh.transform.localPosition;
 
 		//if we're spanning accross multiple lines, we need to do some formatting of the title
 		if(trackTitle.Length > titleLineLength) {
@@ -74,15 +74,15 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 			//set the field positions
 			titlePos.y = titlePositionsY[0];
 			ownerPos.y = ownerPositionsY[0];
-			titleTextMesh.transform.position = titlePos;
-			ownerTextMesh.transform.position = ownerPos;
+			titleTextMesh.transform.localPosition = titlePos;
+			ownerTextMesh.transform.localPosition = ownerPos;
 		}
 		else {
 			//set the field positions
 			titlePos.y = titlePositionsY[1];
 			ownerPos.y = ownerPositionsY[1];
-			titleTextMesh.transform.position = titlePos;
-			ownerTextMesh.transform.position = ownerPos;
+			titleTextMesh.transform.localPosition = titlePos;
+			ownerTextMesh.transform.localPosition = ownerPos;
 		}
 		titleTextMesh.text = trackTitle;
 

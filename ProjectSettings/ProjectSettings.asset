@@ -83,7 +83,7 @@ PlayerSettings:
   StripUnusedMeshComponents: 0
   iPhoneSdkVersion: 988
   iPhoneTargetOSVersion: 16
-  uIPrerenderedIcon: 0
+  uIPrerenderedIcon: 1
   uIRequiresPersistentWiFi: 0
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
@@ -105,6 +105,22 @@ PlayerSettings:
     m_Icons:
     - m_Icon: {fileID: 0}
       m_Size: 128
+  - m_BuildTarget: iPhone
+    m_Icons:
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 152
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 144
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 120
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 114
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 76
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 72
+    - m_Icon: {fileID: 2800000, guid: 69181bb9b63b542cc844b28de728f75d, type: 3}
+      m_Size: 57
   m_BuildTargetBatching: []
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}

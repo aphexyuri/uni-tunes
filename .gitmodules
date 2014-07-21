@@ -1,0 +1,3 @@
+[submodule "Assets/jsonfx-1.x"]
+	path = Assets/jsonfx-1.x
+	url = git@github.com:scopely/jsonfx-1.x.git

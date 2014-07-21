@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
-[Serializable]
 public class SCTrack
 {
 	public SCTrack() {}
