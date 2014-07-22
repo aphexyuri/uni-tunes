@@ -46,8 +46,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 212: {fileID: 21200000}
-  - 61: {fileID: 6100006}
-  - 114: {fileID: 11400014}
   m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
@@ -64,7 +62,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400006}
   - 212: {fileID: 21200002}
-  - 61: {fileID: 6100000}
+  - 61: {fileID: 6100004}
   - 114: {fileID: 11400004}
   m_Layer: 8
   m_Name: BtnPause
@@ -150,7 +148,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400016}
   - 212: {fileID: 21200006}
-  - 61: {fileID: 6100004}
+  - 61: {fileID: 6100000}
   - 114: {fileID: 11400008}
   m_Layer: 8
   m_Name: SoundCloudLogo
@@ -180,7 +178,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: .100000001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -270,7 +268,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.63870001, y: -.521570742, z: -.0452662781}
+  m_LocalPosition: {x: 4.63870001, y: -.521570742, z: -.100000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -352,12 +350,12 @@ BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
+  m_GameObject: {fileID: 100016}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .5, y: .649999976}
-  m_Center: {x: .25, y: -.324999988}
+  m_Size: {x: .639999986, y: .430000007}
+  m_Center: {x: 0, y: 0}
 --- !u!61 &6100002
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -374,23 +372,12 @@ BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100016}
+  m_GameObject: {fileID: 100006}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .639999986, y: .430000007}
-  m_Center: {x: 0, y: 0}
---- !u!61 &6100006
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Size: {x: .200000003, y: .200000003}
-  m_Center: {x: .100000001, y: -.100000001}
+  m_Size: {x: .5, y: .649999976}
+  m_Center: {x: .25, y: -.324999988}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -460,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5ddf56437424c77b345b96cb1d0495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  widgetDocking: 3
+  widgetDocking: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -530,17 +517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCamera: {fileID: 2000000}
---- !u!114 &11400014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d431bde1bf4e64b438b892cf342f8dec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
