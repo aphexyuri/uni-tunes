@@ -29,15 +29,13 @@ public class UniTunesBtn : MonoBehaviour
 			}
 		}
 	}
-#endif
-
-#if !UNITY_EDITOR
+#else
 	void Update()
 	{
 		if (Input.touchCount == 1)
 		{
 			if(Input.GetTouch(0).phase == TouchPhase.Ended) {
-				Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+				Vector3 wp = _cam.ScreenToWorldPoint(Input.GetTouch(0).position);
 				Vector2 touchPos = new Vector2(wp.x, wp.y);
 				
 				Collider2D c2d = Physics2D.OverlapPoint(touchPos);

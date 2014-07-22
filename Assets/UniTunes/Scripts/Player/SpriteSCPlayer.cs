@@ -42,7 +42,9 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 		background = transform.Find("Background").gameObject;
 		soundCloudLogo = transform.Find("SoundCloudLogo").gameObject;
 
-		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized) {
+		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized ||
+		   SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized)
+		{
 			MinMaxPlayer(false);
 		}
 	}
@@ -169,6 +171,12 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 			break;
 
 		case "SoundCloudLogo":
+			if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized ||
+			   SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMaximized)
+			{
+				return;
+			}
+
 			if(playerMaximised) {
 				//mazimize player
 				MinMaxPlayer(false);
