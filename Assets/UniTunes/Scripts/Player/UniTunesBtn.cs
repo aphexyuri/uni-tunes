@@ -17,23 +17,36 @@ public class UniTunesBtn : MonoBehaviour
 		}
 	}
 
+#if UNITY_EDITOR
 	void Update()
 	{
-#if UNITY_EDITOR
 		if(Input.GetMouseButtonUp(0)) {
-#else
-		if (Input.touchCount == 1) {
-			if(Input.GetTouch(0).phase == TouchPhase.Ended) {
-#endif
-				Vector3 touchPos = _cam.ScreenToWorldPoint(Input.mousePosition);
-				RaycastHit2D hit = Physics2D.Raycast(touchPos, transform.position);
+			Vector3 touchPos = _cam.ScreenToWorldPoint(Input.mousePosition);
+			RaycastHit2D hit = Physics2D.Raycast(touchPos, transform.position);
 
-				if(hit.collider != null && hit.collider == collider2D) {
-					OnBtnPressedEvt(name);
-				}
-#if !UNITY_EDITOR
+			if(hit.collider != null && hit.collider == collider2D) {
+				OnBtnPressedEvt(name);
 			}
-#endif
 		}
 	}
+#endif
+
+#if !UNITY_EDITOR
+	void Update()
+	{
+		if (Input.touchCount == 1)
+		{
+			if(Input.GetTouch(0).phase == TouchPhase.Ended) {
+				Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+				Vector2 touchPos = new Vector2(wp.x, wp.y);
+				
+				Collider2D c2d = Physics2D.OverlapPoint(touchPos);
+				
+				if(collider2D == c2d) {
+					OnBtnPressedEvt(name);
+				}
+			}
+		}
+	}
+#endif
 }
