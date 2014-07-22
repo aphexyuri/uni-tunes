@@ -13,18 +13,40 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 	private static int titleLineTwoLength = 28;
 	private static int ownerLineLength = 26;
 
-	private string trackTitle; // "Boom boom \n boom track title here";
-	private string trackOwner; // "Markus Workstorm and The Wailers";
-	private string url; // "http://www.google.com";
-
-	public TextMesh titleTextMesh;
-	public TextMesh ownerTextMesh;
-
 	private float[] titlePositionsY = new float[2] {-0.07f, -0.15f};
 	private float[] ownerPositionsY = new float[2] {-0.52f, -0.45f};
+	private float[] soundCloudMinMaxPositionsX = new float[3] {0.42f, 4.58f, 2.5f};
 
+	private bool playerMaximised = true;
+
+	private string trackTitle;
+	private string trackOwner;
+	private string url;
+
+	private TextMesh titleTextMesh;
+	private TextMesh ownerTextMesh;
+
+	private GameObject btnPause;
+	private GameObject btnNext;
+	private GameObject background;
+	private GameObject soundCloudLogo;
 
 	#region Unity Lifecycle
+	void Awake()
+	{
+		titleTextMesh = transform.Find("TitleTextMesh").GetComponent<TextMesh>();
+		ownerTextMesh = transform.Find("OwnerTextMesh").GetComponent<TextMesh>();
+
+		btnPause = transform.Find("BtnPause").gameObject;
+		btnNext = transform.Find("BtnNext").gameObject;
+		background = transform.Find("Background").gameObject;
+		soundCloudLogo = transform.Find("SoundCloudLogo").gameObject;
+
+		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized) {
+			MinMaxPlayer(false);
+		}
+	}
+
 	void OnEnable()
 	{
 		UniTunesBtn.OnBtnPressedEvt += OnBtnPressed;
@@ -36,6 +58,38 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 	}
 	#endregion
 
+
+	private void MinMaxPlayer(bool maximized)
+	{
+		btnPause.SetActive(maximized);
+		btnNext.SetActive(maximized);
+		background.SetActive(maximized);
+		
+		titleTextMesh.renderer.enabled = maximized;
+		ownerTextMesh.renderer.enabled = maximized;
+
+		//re-layout soundcloud logo if we're not on right bounds of screen
+		Vector3 soundCloudPos = soundCloudLogo.transform.localPosition;
+		if(SoundCloudPlayer.Instance.widgetDocking == SCPlayerDocking.Docking.TopLeft || SoundCloudPlayer.Instance.widgetDocking == SCPlayerDocking.Docking.BottomLeft) {
+			if(maximized) {
+				soundCloudPos.x = soundCloudMinMaxPositionsX[1];
+			}
+			else {
+				soundCloudPos.x = soundCloudMinMaxPositionsX[0];
+			}
+		}
+		else if(SoundCloudPlayer.Instance.widgetDocking == SCPlayerDocking.Docking.TopCentre || SoundCloudPlayer.Instance.widgetDocking == SCPlayerDocking.Docking.BottomCentre) {
+			if(maximized) {
+				soundCloudPos.x = soundCloudMinMaxPositionsX[1];
+			}
+			else {
+				soundCloudPos.x = soundCloudMinMaxPositionsX[2];
+			}
+		}
+		soundCloudLogo.transform.localPosition = soundCloudPos;
+
+		playerMaximised = maximized;
+	}
 
 	private void SetTrackInfo()
 	{
@@ -111,6 +165,17 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 		case "Background":
 			if(!string.IsNullOrEmpty(url)) {
 				Application.OpenURL(url);
+			}
+			break;
+
+		case "SoundCloudLogo":
+			if(playerMaximised) {
+				//mazimize player
+				MinMaxPlayer(false);
+			}
+			else {
+				//minimize player
+				MinMaxPlayer(true);
 			}
 			break;
 		}

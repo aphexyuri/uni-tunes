@@ -3,8 +3,6 @@ using System.Collections;
 
 public class SCPlayerDocking : MonoBehaviour
 {
-	public Camera useCamera;
-
 	private ScreenOrientation orientation;
 	
 	private Camera renderingCamera;
@@ -15,11 +13,11 @@ public class SCPlayerDocking : MonoBehaviour
 	public enum Docking
 	{
 		None,
-		TopCentre,
 		TopLeft,
+		TopCentre,
 		TopRight,
-		BottomCentre,
 		BottomLeft,
+		BottomCentre,
 		BottomRight
 	}
 	
@@ -42,14 +40,15 @@ public class SCPlayerDocking : MonoBehaviour
 
 	private void SetCamera()
 	{
-		if(useCamera != null) {
-			renderingCamera = useCamera;
-			zPosition = -renderingCamera.transform.position.z + transform.position.z;
+		foreach(Camera cam in Camera.allCameras) {
+			if(cam.name == "SoundCloudPlayer") {
+				renderingCamera = cam;
+				zPosition = -renderingCamera.transform.position.z + transform.position.z;
+				return;
+			}
 		}
-		else {
-			renderingCamera = Camera.main;
-			zPosition = -renderingCamera.transform.position.z + transform.position.z;
-		}
+
+		renderingCamera = Camera.main;
 	}
 
 	private void SetMaxSize()

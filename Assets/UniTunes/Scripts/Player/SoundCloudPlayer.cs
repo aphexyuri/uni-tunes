@@ -6,12 +6,20 @@ using System.Collections;
 
 public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 {
+	public SCPlayerDocking.Docking widgetDocking = SCPlayerDocking.Docking.None;
+	public PlayerMode playerMode = PlayerMode.StartMaximized;
+
+	public enum PlayerMode {
+		StartMaximized,
+		StartMinimized,
+		AlwaysMaximized,
+		AlwaysMinimized
+	}
+
 	private SCSet _scSet;
 	private ISCPlayer _playerWidget;
 
 	private int _currentPlayIndex = -1;
-
-	public SCPlayerDocking.Docking widgetDocking = SCPlayerDocking.Docking.None;
 
 	#region Unity Lifecycle
 	void Start()
