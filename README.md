@@ -5,10 +5,7 @@ uni-tunes
 
 __General__
 
-- detect track end (advance to next)
-- progress to next track
-- handle url corruption (removal etc)
-- multiple autio sources issue
+
 
 __Player__
 
@@ -18,7 +15,16 @@ __Player__
 __Editor__
 
 - track search
-- loop checkbox value cange detection with save to json
+- loop checkbox value change detection with save to json
+
+---
+__Done__
+
+- multiple audio sources issue
+- detect track end (advance to next)
+- progress to next track on track end
+- handle url corruption (removal etc) - proceed to next
+
 
 
 

@@ -10,6 +10,12 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 	public delegate void OnServiceStatusChange(ServiceStatus status);
 	public static event OnServiceStatusChange OnServiceStatusChangeEvt;
 
+	public delegate void OnTrackComplete();
+	public static event OnTrackComplete OnTrackCompleteEvt;
+
+	public delegate void OnTrackStreamFailure();
+	public static event OnTrackStreamFailure OnTrackStreamFailureEvt;
+
 	private WWW streamWWW;
 	private AudioSource audioSource;
 	
@@ -48,12 +54,13 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 
 
 	#region Unity Lifecyclwe
-	void Update()
-	{
-		if(audioSource != null && !audioSource.isPlaying) {
-			DisposeAudioSource();
-		}
-	}
+//	void Update()
+//	{
+//		if(audioSource != null && !audioSource.isPlaying) {
+//			DisposeAudioSource();
+//			Debug.Log("not playing");
+//		}
+//	}
 
 	//adding this hack together with [ExecuteInEditMode] to avoid reference loss on manual gameobject deletion
 	void OnDestroy()
@@ -164,6 +171,10 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		
 		if(streamWWW.error != null) {
 			CallbackLog("Error streaming track:" + streamWWW.error);
+
+			if(OnTrackStreamFailureEvt != null) {
+				OnTrackStreamFailureEvt();
+			}
 			yield break;
 		}
 		
@@ -187,8 +198,19 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		audioSource = audio;
 		audioSource.clip = audioClip;
 		audioSource.Play();
+		
+		Invoke("TrackComplete", track.duration/1000);
 
 		Status = ServiceStatus.Ready;
+	}
+
+	private void TrackComplete()
+	{
+		DisposeAudioSource();
+
+		if(OnTrackCompleteEvt != null) {
+			OnTrackCompleteEvt();
+		}
 	}
 	
 	#region public API

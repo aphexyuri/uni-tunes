@@ -29,17 +29,22 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 
 	void OnEnable()
 	{
-		SpriteSCPlayer.OnPauseBtnPressedEvt += OnPauseBtnPressed;
-		SpriteSCPlayer.OnPlayNextBtnPressedEvt += OnPlayNextBtnPressed;
-		SoundCloudService.OnServiceStatusChangeEvt += OnServiceStatusChange;
+		SpriteSCPlayer.OnPauseBtnPressedEvt += HandlePauseBtnPressed;
+		SpriteSCPlayer.OnPlayNextBtnPressedEvt += HandlePlayNextBtnPressed;
+
+		SoundCloudService.OnServiceStatusChangeEvt += HandleServiceStatusChange;
+		SoundCloudService.OnTrackCompleteEvt += HandleTrackCompleteEvt;
+		SoundCloudService.OnTrackStreamFailureEvt += HandleTrackStreamFailureEvt;
 	}
 
-	
 	void OnDisable()
 	{
-		SpriteSCPlayer.OnPauseBtnPressedEvt -= OnPauseBtnPressed;
-		SpriteSCPlayer.OnPlayNextBtnPressedEvt -= OnPlayNextBtnPressed;
-		SoundCloudService.OnServiceStatusChangeEvt -= OnServiceStatusChange;
+		SpriteSCPlayer.OnPauseBtnPressedEvt -= HandlePauseBtnPressed;
+		SpriteSCPlayer.OnPlayNextBtnPressedEvt -= HandlePlayNextBtnPressed;
+
+		SoundCloudService.OnServiceStatusChangeEvt -= HandleServiceStatusChange;
+		SoundCloudService.OnTrackCompleteEvt -= HandleTrackCompleteEvt;
+		SoundCloudService.OnTrackStreamFailureEvt -= HandleTrackStreamFailureEvt;
 	}
 	#endregion
 
@@ -49,7 +54,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 
 
 	#region event handlers
-	private void OnPauseBtnPressed()
+	private void HandlePauseBtnPressed()
 	{
 		if(_currentPlayIndex == -1) {
 			PlaySet();
@@ -59,7 +64,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		SoundCloudService.Instance.StopPlayback();
 	}
 
-	private void OnPlayNextBtnPressed()
+	private void HandlePlayNextBtnPressed()
 	{
 		if(_currentPlayIndex == -1) {
 			PlaySet();
@@ -83,7 +88,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		}
 	}
 
-	void OnServiceStatusChange(SoundCloudService.ServiceStatus status)
+	void HandleServiceStatusChange(SoundCloudService.ServiceStatus status)
 	{
 		if(status == SoundCloudService.ServiceStatus.Ready) {
 			_playerWidget.SetTrackInfo(SoundCloudService.Instance.PlaybackTrack);
@@ -91,6 +96,17 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		else {
 			_playerWidget.SetTrackInfo(null);
 		}
+	}
+
+	void HandleTrackCompleteEvt()
+	{
+		_playerWidget.SetTrackInfo(null);
+		HandlePlayNextBtnPressed();
+	}
+
+	void HandleTrackStreamFailureEvt ()
+	{
+		HandlePlayNextBtnPressed();
 	}
 	#endregion
 
