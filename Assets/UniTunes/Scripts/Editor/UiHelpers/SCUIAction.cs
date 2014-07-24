@@ -8,8 +8,7 @@
 		Play,
 		Stop,
 		MoveUp,
-		MoveDown,
-		LoopChange
+		MoveDown
 	}
 
 	private ControlAction _action = ControlAction.None;

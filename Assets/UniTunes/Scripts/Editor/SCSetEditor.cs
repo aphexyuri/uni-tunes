@@ -73,11 +73,6 @@ public class SCSetEditor : EditorWindow
 			SoundCloudService.Instance.Resolve((string) uiAction.Data, OnResolveCallback, null);
 			break;
 
-		case SCUIAction.ControlAction.LoopChange:
-			scSet.loopPlaylist = (bool) uiAction.Data;
-			SaveConfig();
-			break;
-
 		default:
 			break;
 		}
