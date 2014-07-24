@@ -42,8 +42,8 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 		background = transform.Find("Background").gameObject;
 		soundCloudLogo = transform.Find("SoundCloudLogo").gameObject;
 
-		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized ||
-		   SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized)
+		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized || 
+			SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized)
 		{
 			MinMaxPlayer(false);
 		}
@@ -93,7 +93,7 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 		playerMaximised = maximized;
 	}
 
-	private void SetTrackInfo()
+	private void SetTrackInfoInternal()
 	{
 		Vector3 titlePos = titleTextMesh.transform.localPosition;
 		Vector3 ownerPos = ownerTextMesh.transform.localPosition;
@@ -225,7 +225,7 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 
 		url = string.Empty;
 
-		SetTrackInfo();
+		SetTrackInfoInternal();
 	}
 
 	public void SetTrackInfo(SCTrack track)
@@ -236,7 +236,17 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 			url = track.permalink_url;
 		}
 
-		SetTrackInfo();
+		SetTrackInfoInternal();
+	}
+
+	public void MinimizePlayer()
+	{
+		MinMaxPlayer(false;
+	}
+	
+	public void MaximisePlayer()
+	{
+		MinMaxPlayer(true);
 	}
 	#endregion
 }

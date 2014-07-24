@@ -30,12 +30,16 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		Version version = new Version(versionString);
 		
 		//2D & sprites are not supported prior to 4.3...so we use UnityGUI in that case
-		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
+//		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
 			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
-		}
-		else {
-			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
-		}
+			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
+			spritePlayer.SetActive(false);
+//		}
+//		else {
+//			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
+//			GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
+//			guiPlayer.SetActive(false);
+//		}
 
 		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
 	}
@@ -227,9 +231,28 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		HandlePlayNextBtnPressed();
 	}
 
+	/// <summary>
+	/// Stops the current playback.
+	/// </summary>
 	public void StopPlayback()
 	{
 		HandlePauseBtnPressed();
+	}
+
+	/// <summary>
+	/// Minimizes the player.
+	/// </summary>
+	public void MinimizePlayer()
+	{
+		_playerWidget.MinimizePlayer();
+	}
+
+	/// <summary>
+	/// Maximises the player.
+	/// </summary>
+	public void MaximisePlayer()
+	{
+		_playerWidget.MaximisePlayer();
 	}
 	#endregion
 }
