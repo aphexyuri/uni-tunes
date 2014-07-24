@@ -12,7 +12,7 @@ public static class UniTunesConsts
 	public static string SC_METHOD_RESOLVE = "/resolve.json";
 
 	public static string EDITOR_TEXTURE_PATH = "Assets/UniTunes/Textures/Editor";
-	public static string EDITOR_TEXTURE_SCPLAYER = "Assets/UniTunes/Textures/SCPlayer";
+	public static string TEXTURES_SCGUIPLAYER = "Assets/UniTunes/Textures/SCGUIPlayer";
 	public static string SC_CONFIG_FILE = "Assets/UniTunes/SCConfig.asset";
 
 	public static string EN_NOT_AVAILABLE_PLAYBACK = "Editing not available during playback";
