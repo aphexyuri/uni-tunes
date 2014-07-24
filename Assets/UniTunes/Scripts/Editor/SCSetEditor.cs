@@ -71,6 +71,11 @@ public class SCSetEditor : EditorWindow
 			SoundCloudService.Instance.Resolve((string) uiAction.Data, OnResolveCallback, null);
 			break;
 
+		case SCUIAction.ControlAction.LoopChange:
+			scSet.loopPlaylist = (bool) uiAction.Data;
+			SaveConfig();
+			break;
+
 		default:
 			break;
 		}
@@ -81,7 +86,7 @@ public class SCSetEditor : EditorWindow
 				SCUIAction trackUiAction = RenderSCTracks.RenderUI(scSet);
 
 				switch(trackUiAction.Action) {
-
+				
 				case SCUIAction.ControlAction.Play:
 					SoundCloudService.Instance.StreamTrack(((SCTrack) trackUiAction.Data));
 					break;
@@ -109,10 +114,6 @@ public class SCSetEditor : EditorWindow
 					Repaint();
 					break;
 				}
-
-//				if(scSet != null) {
-//					EditorUtility.SetDirty(scSet);
-//				}
 			}
 			EditorGUILayout.EndScrollView();
 		}

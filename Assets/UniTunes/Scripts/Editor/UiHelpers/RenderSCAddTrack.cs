@@ -5,6 +5,8 @@ public static class RenderSCAddTrack
 {
 	private static string publicUrl = string.Empty;
 
+	private static bool loop;
+
 	public static SCUIAction RenderUI(SCSet scSet)
 	{
 		SCUIAction returnAction = new SCUIAction(SCUIAction.ControlAction.None, null);
@@ -23,14 +25,19 @@ public static class RenderSCAddTrack
 
 				GUI.color = Color.green;
 				if(GUILayout.Button(UniTunesConsts.EN_BTN_VALIDATE_ADD, GUILayout.Width(100), GUILayout.ExpandHeight(true))) {
-					returnAction.Action = SCUIAction.ControlAction.Add;
-					returnAction.Data = publicUrl;
+					returnAction.SetProps(SCUIAction.ControlAction.Add, publicUrl);
 				}
 				GUI.color = Color.white;
 			}
 			EditorGUILayout.EndHorizontal();
 
+			loop = scSet.loopPlaylist;
+
 			scSet.loopPlaylist = EditorGUILayout.Toggle("Loop Playlist", scSet.loopPlaylist);
+
+			if(loop != scSet.loopPlaylist) {
+				returnAction.SetProps(SCUIAction.ControlAction.LoopChange, scSet.loopPlaylist);
+			}
 		}
 
 		return returnAction;

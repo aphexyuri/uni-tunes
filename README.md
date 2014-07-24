@@ -6,7 +6,6 @@ uni-tunes
 __General__
 
 
-
 __Player__
 
 - docking
@@ -15,7 +14,6 @@ __Player__
 __Editor__
 
 - track search
-- loop checkbox value change detection with save to json
 
 ---
 __Done__
@@ -24,6 +22,7 @@ __Done__
 - detect track end (advance to next)
 - progress to next track on track end
 - handle url corruption (removal etc) - proceed to next
+- - loop checkbox value change detection with save to json
 
 
 
