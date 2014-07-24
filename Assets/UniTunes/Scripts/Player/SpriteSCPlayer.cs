@@ -241,7 +241,7 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 
 	public void MinimizePlayer()
 	{
-		MinMaxPlayer(false;
+		MinMaxPlayer(false);
 	}
 	
 	public void MaximisePlayer()

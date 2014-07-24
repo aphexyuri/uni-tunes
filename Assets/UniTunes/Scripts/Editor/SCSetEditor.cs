@@ -43,21 +43,7 @@ public class SCSetEditor : EditorWindow
 	{
 		UniTunesGUITextFactory.ClearTextures();
 	}
-	
-//	private void Update()
-//	{
-//		if(scSet == null) {
-//			scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_FILE, typeof(SCSet));
-//
-//			//if the set is still null, create a new config file
-//			if(scSet == null) {
-//				Debug.Log("creating new scSet");
-//				scSet = ScriptableObject.CreateInstance<SCSet>();
-//				AssetDatabase.CreateAsset(scSet, UniTunesConsts.SC_CONFIG_FILE);
-//			}
-//		}
-//	}
-	
+
 	private void OnGUI()
 	{
 		if(scSet == null) {
