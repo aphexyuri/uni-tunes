@@ -8,6 +8,7 @@ __General__
 
 __Player__
 
+- GUI-based player
 - screen orientation changes
 
 __Editor__
@@ -21,7 +22,7 @@ __Done__
 - detect track end (advance to next)
 - progress to next track on track end
 - handle url corruption (removal etc) - proceed to next
-- - loop checkbox value change detection with save to json
+- loop checkbox value change detection with save to json
 
 
 
