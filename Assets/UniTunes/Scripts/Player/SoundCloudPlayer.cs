@@ -61,7 +61,15 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 			return;
 		}
 
-		SoundCloudService.Instance.StopPlayback();
+		if(SoundCloudService.Instance.PlaybackTrack == null) {
+			SCTrack nextTrack = _scSet.GetTrackAtIndex(_currentPlayIndex);
+			if(nextTrack != null && nextTrack != SoundCloudService.Instance.PlaybackTrack) {
+				SoundCloudService.Instance.StreamTrack(nextTrack);
+			}
+		}
+		else {
+			SoundCloudService.Instance.StopPlayback();
+		}
 	}
 
 	private void HandlePlayNextBtnPressed()
