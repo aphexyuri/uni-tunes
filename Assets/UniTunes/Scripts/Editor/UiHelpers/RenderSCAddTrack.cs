@@ -13,24 +13,19 @@ public static class RenderSCAddTrack
 
 		if(scSet == null) { return returnAction; }
 
-		if(EditorApplication.isPlaying) {
-			GUILayout.Label(UniTunesConsts.EN_NOT_AVAILABLE_PLAYBACK, EditorStyles.boldLabel);
-		}
-		else {
-			GUILayout.Label(UniTunesConsts.EN_ADD_TRACK_TO_SET, EditorStyles.boldLabel);
+		GUILayout.Label(UniTunesConsts.EN_ADD_TRACK_TO_SET, EditorStyles.boldLabel);
 
-			EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
-			{
-				publicUrl = EditorGUILayout.TextField(publicUrl, GUILayout.MaxWidth(2048), GUILayout.ExpandWidth(true), GUILayout.Height(20));
+		EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+		{
+			publicUrl = EditorGUILayout.TextField(publicUrl, GUILayout.MaxWidth(2048), GUILayout.ExpandWidth(true), GUILayout.Height(20));
 
-				GUI.color = Color.green;
-				if(GUILayout.Button(UniTunesConsts.EN_BTN_VALIDATE_ADD, GUILayout.Width(100), GUILayout.ExpandHeight(true))) {
-					returnAction.SetProps(SCUIAction.ControlAction.Add, publicUrl);
-				}
-				GUI.color = Color.white;
+			GUI.color = Color.green;
+			if(GUILayout.Button(UniTunesConsts.EN_BTN_VALIDATE_ADD, GUILayout.Width(100), GUILayout.ExpandHeight(true))) {
+				returnAction.SetProps(SCUIAction.ControlAction.Add, publicUrl);
 			}
-			EditorGUILayout.EndHorizontal();
+			GUI.color = Color.white;
 		}
+		EditorGUILayout.EndHorizontal();
 
 		return returnAction;
 	}

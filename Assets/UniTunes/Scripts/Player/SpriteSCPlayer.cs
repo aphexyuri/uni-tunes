@@ -212,14 +212,25 @@ public class SpriteSCPlayer : MonoBehaviour, ISCPlayer
 	}
 
 	#region public API
-	public void SetTrackInfo(SCTrack track)
+	public void SetPlayerMessage(string message, string additionalMsg)
 	{
-		if(track == null ) {
-			trackTitle = UniTunesConsts.EN_WAITING_FOR_STREAM;
+		trackTitle = message;
+
+		if(string.IsNullOrEmpty(additionalMsg)) {
 			trackOwner = string.Empty;
-			url = string.Empty;
 		}
 		else {
+			trackOwner = additionalMsg;
+		}
+
+		url = string.Empty;
+
+		SetTrackInfo();
+	}
+
+	public void SetTrackInfo(SCTrack track)
+	{
+		if(track != null ) {
 			trackTitle = track.title;
 			trackOwner = track.user.username;
 			url = track.permalink_url;

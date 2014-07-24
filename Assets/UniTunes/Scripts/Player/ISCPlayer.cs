@@ -1,5 +1,5 @@
 ﻿public interface ISCPlayer
 {
-//	void ClearTrackInfo();
+	void SetPlayerMessage(string msg, string additionalMsg);
 	void SetTrackInfo(SCTrack track);
 }

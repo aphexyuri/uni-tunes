@@ -9,20 +9,25 @@ public class DebugGUI : MonoBehaviour
 	
 	void OnGUI()
 	{
-		if(GUI.Button(new Rect(0, 0, Screen.width, screenButtonHeight), "Resolve Only"))
+		if(GUI.Button(new Rect(0, 0, 200, screenButtonHeight), "Load Set"))
 		{
-			SoundCloudService.Instance.Resolve("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
+			SoundCloudPlayer.Instance.LoadSet(false);
 		}
-		
-		if(GUI.Button(new Rect(0, 100, Screen.width, screenButtonHeight), "Resolve & Play"))
-		{
-//			SCService.Instance.ResolveAndPlay("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
-		}
-		
-		if(GUI.Button(new Rect(0, 200, Screen.width, screenButtonHeight), "Stop Playback"))
-		{
-			SoundCloudService.Instance.StopPlayback();
-		}
+
+//		if(GUI.Button(new Rect(0, 0, Screen.width, screenButtonHeight), "Resolve Only"))
+//		{
+//			SoundCloudService.Instance.Resolve("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
+//		}
+//		
+//		if(GUI.Button(new Rect(0, 100, Screen.width, screenButtonHeight), "Resolve & Play"))
+//		{
+////			SCService.Instance.ResolveAndPlay("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
+//		}
+//		
+//		if(GUI.Button(new Rect(0, 200, Screen.width, screenButtonHeight), "Stop Playback"))
+//		{
+//			SoundCloudService.Instance.StopPlayback();
+//		}
 		
 		GUI.TextArea(new Rect(0, Screen.height - 300, Screen.width, 300), logLine);
 	}

@@ -230,6 +230,10 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 #endif
 	}
 
+	/// <summary>
+	/// Streams the privided track
+	/// </summary>
+	/// <param name="track">Track to stream</param>
 	public void StreamTrack(SCTrack track)
 	{
 		CancelInvoke("TrackComplete");
@@ -258,6 +262,9 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 //		StartCoroutine(ResolveRoutine(url, true));
 //	}
 	
+	/// <summary>
+	/// Stops the current playback, if any
+	/// </summary>
 	public void StopPlayback()
 	{
 		DisposeAudioSource();

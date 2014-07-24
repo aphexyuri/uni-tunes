@@ -27,8 +27,6 @@ public class SCSetEditor : EditorWindow
 			win.title = "SoundCloud Set";
 			win.minSize = new Vector2(UniTunesConsts.MIN_WINDOW_WIDTH, UniTunesConsts.MIN_WINDOW_HEIGHT);
 		}
-
-		win.LoadSetConfig();
 	}
 	
 	/// <summary>
@@ -62,22 +60,23 @@ public class SCSetEditor : EditorWindow
 	
 	private void OnGUI()
 	{
-		EditorGUILayout.BeginVertical(GUILayout.ExpandHeight(true), GUILayout.MaxHeight(2048)); {
-
-		//render the default ui items
-		SCUIAction uiAction = RenderSCAddTrack.RenderUI(scSet);
-
-		switch(uiAction.Action) {
-
-		case SCUIAction.ControlAction.Add:
-			SoundCloudService.Instance.Resolve((string) uiAction.Data, OnResolveCallback, null);
-			break;
-
-		default:
-			break;
+		if(scSet == null) {
+			LoadSetConfig();
 		}
 
+		EditorGUILayout.BeginVertical(GUILayout.ExpandHeight(true), GUILayout.MaxHeight(2048)); {
+			//render the default ui items
+			SCUIAction uiAction = RenderSCAddTrack.RenderUI(scSet);
 
+			switch(uiAction.Action) {
+
+			case SCUIAction.ControlAction.Add:
+				SoundCloudService.Instance.Resolve((string) uiAction.Data, OnResolveCallback, null);
+				break;
+
+			default:
+				break;
+			}
 
 			windowScrollPos = EditorGUILayout.BeginScrollView(windowScrollPos); {
 				SCUIAction trackUiAction = RenderSCTracks.RenderUI(scSet);
@@ -164,6 +163,7 @@ public class SCSetEditor : EditorWindow
 			scSet = new SCSet();
 			UniTunesUtils.WriteSetConfig(scSet);
 		}
+
 	}
 
 	private void SaveConfig()

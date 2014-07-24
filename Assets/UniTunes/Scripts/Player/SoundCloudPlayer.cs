@@ -24,7 +24,20 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	#region Unity Lifecycle
 	void Start()
 	{
-		LoadSet(true);
+		//get the version expression
+		Regex rgx = new Regex("[^0-9 . -]");
+		string versionString = rgx.Replace(Application.unityVersion, "");
+		Version version = new Version(versionString);
+		
+		//2D & sprites are not supported prior to 4.3...so we use UnityGUI in that case
+		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
+			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
+		}
+		else {
+			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
+		}
+
+		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
 	}
 
 	void OnEnable()
@@ -56,6 +69,8 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	#region event handlers
 	private void HandlePauseBtnPressed()
 	{
+		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_PRESS_BUTTON, UniTunesConsts.EN_TO_START_PLAYBACK);
+
 		if(_currentPlayIndex == -1) {
 			PlaySet();
 			return;
@@ -102,7 +117,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 			_playerWidget.SetTrackInfo(SoundCloudService.Instance.PlaybackTrack);
 		}
 		else {
-			_playerWidget.SetTrackInfo(null);
+			_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_AUDIO_STREAM);
 		}
 	}
 
@@ -119,9 +134,15 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	#endregion
 
 
-	private IEnumerator LoadSetRoutine(bool autoPlay)
+	private IEnumerator LoadSetRoutine(string configUrl, bool autoPlay)
 	{
-		string url = UniTunesUtils.GetSetConfigPath();
+		string url = string.Empty;
+
+		if (string.IsNullOrEmpty(configUrl)) {
+			url = UniTunesUtils.GetSetConfigPath();
+		} else {
+			url = configUrl;
+		}
 
 		if(!url.StartsWith("http") && !url.StartsWith("file://") && !url.StartsWith("jar:")) {
 			url = "file://" + url;
@@ -153,42 +174,62 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 			yield break;
 		}
 
-		//get the version expression
-		Regex rgx = new Regex("[^0-9 . -]");
-		string versionString = rgx.Replace(Application.unityVersion, "");
-		Version version = new Version(versionString);
-		
-		//2D & sprites are not supported prior to 4.3...so we use UnityGUI in that case
-		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
-			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
-		}
-		else {
-			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
-		}
-
 		if(autoPlay) {
 			PlaySet();
+		}
+		else {
+			_playerWidget.SetPlayerMessage(UniTunesConsts.EN_PRESS_BUTTON, UniTunesConsts.EN_TO_START_PLAYBACK);
 		}
 	}
 
 	#region public API
-	public void LoadSet(bool autoPlay)
+	/// <summary>
+	/// Loads the set configuration from remote json file
+	/// </summary>
+	/// <param name="configUrl">If the config is supplied via web, provide the full URL of the config file here</param>
+	/// <param name="autoPlay">If set to <c>true</c> Automatically play the set after config is loaded</param>
+	public void LoadSet(string configUrl, bool autoPlay)
 	{
-		StartCoroutine(LoadSetRoutine(autoPlay));
+		StartCoroutine(LoadSetRoutine(configUrl, autoPlay));
 	}
 
+	/// <summary>
+	/// Loads the set configuration from StreaminAssets/SCConfig.json (editor output location)
+	/// </summary>
+	/// <param name="autoPlay">If set to <c>true</c> auto play.</param>
+	public void LoadSet(bool autoPlay)
+	{
+		LoadSet(string.Empty, autoPlay);
+	}
+
+	/// <summary>
+	/// Starts playback from beginning of set (first track)
+	/// </summary>
 	public void PlaySet()
 	{
-		if(_scSet != null) {
+		if(_scSet == null) {
+			Debug.LogWarning("SoundCloud Set not valid or initialized");
+		}
+		else {
 			_currentPlayIndex = 0;
 			SCTrack firstTrack = _scSet.GetTrackAtIndex(_currentPlayIndex);
 			if(firstTrack != null) {
 				SoundCloudService.Instance.StreamTrack(firstTrack);
 			}
 		}
-		else {
-			Debug.LogWarning("SoundCloud Set not valid or initialized");
-		}
+	}
+
+	/// <summary>
+	/// Plays the next track (same action as next button)
+	/// </summary>
+	public void PlayNext()
+	{
+		HandlePlayNextBtnPressed();
+	}
+
+	public void StopPlayback()
+	{
+		HandlePauseBtnPressed();
 	}
 	#endregion
 }

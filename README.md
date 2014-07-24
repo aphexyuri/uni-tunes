@@ -5,11 +5,7 @@ uni-tunes
 
 __General__
 
-- persist editor data on assetdatabase refresh
-- set autoplay from editor (SoundCloudplayer exposed property)
-- improved API access
-- document API methods
-- add powerted by soundcloud logo to editor (with link to soundcloud)
+- add powered by soundcloud logo to editor (with link to soundcloud)
 - add undo support
 
 ---
@@ -17,7 +13,6 @@ __General__
 __Player__
 
 - GUI-based player
-- button effect - improve user ui feedback
 
 ---
 
@@ -34,6 +29,15 @@ __Done__
 - handle url corruption (removal etc) - proceed to next
 - loop checkbox value change detection with save to json
 - screen orientation changes
+- improved API access
+- document API methods
+- persist editor data on assetdatabase refresh
 
+---
+
+__Future__
+
+- set autoplay from editor (SoundCloudplayer exposed property)
+- button effect - improve user ui feedback
 
 

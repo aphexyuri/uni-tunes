@@ -14,12 +14,12 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 //	private string url; // "http://www.google.com";
 
 	#region public API
-//	public void ClearTrackInfo()
-//	{
-//		trackTitle = string.Empty;
+	public void SetPlayerMessage(string message, string additionalMsg)
+	{
+//		trackTitle = message;
 //		trackOwner = string.Empty;
 //		url = string.Empty;
-//	}
+	}
 
 	public void SetTrackInfo(SCTrack track)
 	{
