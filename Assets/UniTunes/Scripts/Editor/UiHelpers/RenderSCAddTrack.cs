@@ -31,13 +31,13 @@ public static class RenderSCAddTrack
 			}
 			EditorGUILayout.EndHorizontal();
 
-			loop = scSet.loopPlaylist;
-
-			scSet.loopPlaylist = EditorGUILayout.Toggle("Loop Playlist", scSet.loopPlaylist);
-
-			if(loop != scSet.loopPlaylist) {
-				returnAction.SetProps(SCUIAction.ControlAction.LoopChange, scSet.loopPlaylist);
-			}
+//			loop = scSet.loopPlaylist;
+//
+//			scSet.loopPlaylist = EditorGUILayout.Toggle("Loop Playlist", scSet.loopPlaylist);
+//
+//			if(loop != scSet.loopPlaylist) {
+//				returnAction.SetProps(SCUIAction.ControlAction.LoopChange, scSet.loopPlaylist);
+//			}
 		}
 
 		return returnAction;

@@ -5,9 +5,12 @@ uni-tunes
 
 __General__
 
+- persist editor data on assetdatabase refresh
 - set autoplay from editor (SoundCloudplayer exposed property)
 - improved API access
 - document API methods
+- add powerted by soundcloud logo to editor (with link to soundcloud)
+- add undo support
 
 ---
 

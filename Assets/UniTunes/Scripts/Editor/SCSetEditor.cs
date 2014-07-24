@@ -62,6 +62,8 @@ public class SCSetEditor : EditorWindow
 	
 	private void OnGUI()
 	{
+		EditorGUILayout.BeginVertical(GUILayout.ExpandHeight(true), GUILayout.MaxHeight(2048)); {
+
 		//render the default ui items
 		SCUIAction uiAction = RenderSCAddTrack.RenderUI(scSet);
 
@@ -79,8 +81,8 @@ public class SCSetEditor : EditorWindow
 		default:
 			break;
 		}
-		
-		EditorGUILayout.BeginVertical(); {
+
+
 
 			windowScrollPos = EditorGUILayout.BeginScrollView(windowScrollPos); {
 				SCUIAction trackUiAction = RenderSCTracks.RenderUI(scSet);
@@ -116,6 +118,20 @@ public class SCSetEditor : EditorWindow
 				}
 			}
 			EditorGUILayout.EndScrollView();
+
+			GUILayout.FlexibleSpace();
+
+			EditorGUILayout.BeginHorizontal(GUI.skin.box, GUILayout.ExpandWidth(true), GUILayout.MaxWidth(2048)); {
+				//loop checkbox
+				if(scSet != null) {
+
+					GUILayout.Label("Loop Playlist");
+					bool loop = scSet.loopPlaylist;
+					scSet.loopPlaylist = EditorGUILayout.Toggle(scSet.loopPlaylist, GUILayout.Width(20));
+					if(loop != scSet.loopPlaylist) { SaveConfig(); }
+				}
+			}
+			EditorGUILayout.EndHorizontal();
 		}
 	}
 	#endregion
