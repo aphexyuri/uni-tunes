@@ -236,6 +236,8 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 
 	public void StreamTrack(SCTrack track)
 	{
+		CancelInvoke("TrackComplete");
+
 		if(Status == ServiceStatus.Busy) {
 			Debug.LogWarning("Service is busy - ignoring request");
 			return;
