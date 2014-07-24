@@ -21,10 +21,12 @@ public class UniTunesBtn : MonoBehaviour
 	void Update()
 	{
 		if(Input.GetMouseButtonUp(0)) {
-			Vector3 touchPos = _cam.ScreenToWorldPoint(Input.mousePosition);
-			RaycastHit2D hit = Physics2D.Raycast(touchPos, transform.position);
-
-			if(hit.collider != null && hit.collider == collider2D) {
+			Vector3 wp = _cam.ScreenToWorldPoint(Input.mousePosition);
+			Vector2 touchPos = new Vector2(wp.x, wp.y);
+			
+			Collider2D c2d = Physics2D.OverlapPoint(touchPos);
+			
+			if(collider2D == c2d) {
 				OnBtnPressedEvt(name);
 			}
 		}
