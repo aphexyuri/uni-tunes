@@ -54,14 +54,6 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 
 
 	#region Unity Lifecyclwe
-//	void Update()
-//	{
-//		if(audioSource != null && !audioSource.isPlaying) {
-//			DisposeAudioSource();
-//			Debug.Log("not playing");
-//		}
-//	}
-
 	//adding this hack together with [ExecuteInEditMode] to avoid reference loss on manual gameobject deletion
 	void OnDestroy()
 	{
@@ -81,6 +73,8 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 	
 	private void DisposeAudioSource()
 	{
+		CancelInvoke("TrackComplete");
+
 		_playbackTrack = null;
 
 		if(audioSource == null) { return; }
@@ -100,6 +94,8 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		//remove callbacks if any
 		if(_serviceCallback != null) { _serviceCallback = null; }
 		if(_logCallback != null) { _logCallback = null; }
+
+		Status = ServiceStatus.Ready;
 	}
 	
 	private IEnumerator ResolveRoutine(string urlToResolve, bool playOnSuccess)
