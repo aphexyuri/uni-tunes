@@ -15,7 +15,12 @@ public static class RenderSCAddTrack
 
 		EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.MaxWidth(2048));
 		{
-			GUILayout.Label(UniTunesConsts.EN_ADD_TRACK_TO_SET, EditorStyles.boldLabel);
+			EditorGUILayout.BeginVertical(GUILayout.Height(30));
+			{
+				GUILayout.FlexibleSpace();
+				GUILayout.Label(UniTunesConsts.EN_ADD_TRACK_TO_SET, EditorStyles.boldLabel);
+			}
+			EditorGUILayout.EndVertical();
 
 			GUILayout.FlexibleSpace();
 
@@ -30,7 +35,7 @@ public static class RenderSCAddTrack
 
 		EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
 		{
-			publicUrl = EditorGUILayout.TextField(publicUrl, GUILayout.MaxWidth(2048), GUILayout.ExpandWidth(true), GUILayout.Height(30));
+			publicUrl = EditorGUILayout.TextField(publicUrl, GUILayout.MaxWidth(2048), GUILayout.ExpandWidth(true), GUILayout.Height(25));
 
 			GUI.color = Color.green;
 			if(GUILayout.Button(UniTunesConsts.EN_BTN_VALIDATE_ADD, GUILayout.Width(100), GUILayout.ExpandHeight(true))) {

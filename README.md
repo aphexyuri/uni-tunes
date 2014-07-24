@@ -5,6 +5,7 @@ uni-tunes
 
 __General__
 
+- version, changelist, copyright
 - AssetStore graphics & submission
 
 ---
@@ -17,7 +18,6 @@ __Player__
 
 __Editor__
 
-- track search
 
 ---
 __Done__
@@ -40,5 +40,7 @@ __Future__
 - set autoplay from editor (SoundCloudplayer exposed property)
 - button effect - improve user ui feedback
 - add undo support
+- track search
+- audio upload & streaming
 
 

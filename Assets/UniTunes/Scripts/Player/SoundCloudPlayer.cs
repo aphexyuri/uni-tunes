@@ -49,6 +49,9 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		SpriteSCPlayer.OnPauseBtnPressedEvt += HandlePauseBtnPressed;
 		SpriteSCPlayer.OnPlayNextBtnPressedEvt += HandlePlayNextBtnPressed;
 
+		GUISCPlayer.OnPauseBtnPressedEvt += HandlePauseBtnPressed;
+		GUISCPlayer.OnPlayNextBtnPressedEvt += HandlePlayNextBtnPressed;
+
 		SoundCloudService.OnServiceStatusChangeEvt += HandleServiceStatusChange;
 		SoundCloudService.OnTrackCompleteEvt += HandleTrackCompleteEvt;
 		SoundCloudService.OnTrackStreamFailureEvt += HandleTrackStreamFailureEvt;
@@ -58,6 +61,9 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	{
 		SpriteSCPlayer.OnPauseBtnPressedEvt -= HandlePauseBtnPressed;
 		SpriteSCPlayer.OnPlayNextBtnPressedEvt -= HandlePlayNextBtnPressed;
+
+		GUISCPlayer.OnPauseBtnPressedEvt -= HandlePauseBtnPressed;
+		GUISCPlayer.OnPlayNextBtnPressedEvt -= HandlePlayNextBtnPressed;
 
 		SoundCloudService.OnServiceStatusChangeEvt -= HandleServiceStatusChange;
 		SoundCloudService.OnTrackCompleteEvt -= HandleTrackCompleteEvt;
