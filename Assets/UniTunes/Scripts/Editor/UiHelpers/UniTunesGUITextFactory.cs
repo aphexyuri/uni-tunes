@@ -12,6 +12,7 @@ public static class UniTunesGUITextFactory
 	public static Texture2D downFullBtn;
 	public static Texture2D upDownBlank;
 	public static Texture2D removeBtn;
+	public static Texture2D soundcloudLogo;
 
 	private static byte[] GetImageData(string imgPath)
 	{
@@ -116,5 +117,16 @@ public static class UniTunesGUITextFactory
 		}
 		
 		return upDownBlank;
+	}
+
+	public static Texture2D GetSoundCloudLogo()
+	{
+		if(soundcloudLogo == null) {
+			//do the loading
+			soundcloudLogo = new Texture2D(55, 55);
+			soundcloudLogo.LoadImage(GetImageData(Path.Combine(UniTunesConsts.EDITOR_TEXTURE_PATH, "pb_soundcloud_logo.png")));
+		}
+		
+		return soundcloudLogo;
 	}
 }

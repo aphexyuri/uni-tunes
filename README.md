@@ -5,8 +5,7 @@ uni-tunes
 
 __General__
 
-- add powered by soundcloud logo to editor (with link to soundcloud)
-- add undo support
+- AssetStore graphics & submission
 
 ---
 
@@ -32,6 +31,7 @@ __Done__
 - improved API access
 - document API methods
 - persist editor data on assetdatabase refresh
+- add powered by soundcloud logo to editor (with link to soundcloud)
 
 ---
 
@@ -39,5 +39,6 @@ __Future__
 
 - set autoplay from editor (SoundCloudplayer exposed property)
 - button effect - improve user ui feedback
+- add undo support
 
 

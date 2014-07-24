@@ -19,9 +19,7 @@ public static class RenderSCTracks
 					GUILayout.FlexibleSpace();
 					if(scSet.tracks.Count == 1) {
 						//draw blank
-						if(GUILayout.Button(UniTunesGUITextFactory.GetUpDownBlankTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
-							//do nothing
-						}
+						if(GUILayout.Button(UniTunesGUITextFactory.GetUpDownBlankTexture(), GUIStyle.none, GUILayout.ExpandHeight(true))) {}
 					}
 					else {
 						if(index == 0) {

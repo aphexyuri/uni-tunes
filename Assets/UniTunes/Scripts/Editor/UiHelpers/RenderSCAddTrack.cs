@@ -13,11 +13,24 @@ public static class RenderSCAddTrack
 
 		if(scSet == null) { return returnAction; }
 
-		GUILayout.Label(UniTunesConsts.EN_ADD_TRACK_TO_SET, EditorStyles.boldLabel);
+		EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.MaxWidth(2048));
+		{
+			GUILayout.Label(UniTunesConsts.EN_ADD_TRACK_TO_SET, EditorStyles.boldLabel);
+
+			GUILayout.FlexibleSpace();
+
+			if(GUILayout.Button(UniTunesGUITextFactory.GetSoundCloudLogo(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+				Application.OpenURL("http://developers.soundcloud.com");
+			}
+		}
+		EditorGUILayout.EndHorizontal();
+
+
+
 
 		EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
 		{
-			publicUrl = EditorGUILayout.TextField(publicUrl, GUILayout.MaxWidth(2048), GUILayout.ExpandWidth(true), GUILayout.Height(20));
+			publicUrl = EditorGUILayout.TextField(publicUrl, GUILayout.MaxWidth(2048), GUILayout.ExpandWidth(true), GUILayout.Height(30));
 
 			GUI.color = Color.green;
 			if(GUILayout.Button(UniTunesConsts.EN_BTN_VALIDATE_ADD, GUILayout.Width(100), GUILayout.ExpandHeight(true))) {
