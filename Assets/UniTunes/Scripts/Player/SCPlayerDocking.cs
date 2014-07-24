@@ -8,6 +8,7 @@ public class SCPlayerDocking : MonoBehaviour
 	private Camera renderingCamera;
 	private float zPosition;
 
+	private Vector2 playerSize = Vector2.zero;
 	private Vector3 maxSize = Vector3.zero;
 
 	public enum Docking
@@ -26,16 +27,27 @@ public class SCPlayerDocking : MonoBehaviour
 		orientation = Screen.orientation;
 
 		SetCamera();
-		SetMaxSize();
+		SetPlayerSize();
+
 		DockPlayer();
 	}
 
 	void Update()
 	{
 		if(Screen.orientation != orientation) {
-			//orentation changed
+			orientation = Screen.orientation;
+
 			DockPlayer();
+			StartCoroutine(OrientationChageDelay());
 		}
+	}
+
+	//hack to as docking calculations happened too fast, before orientation config commit
+	private IEnumerator OrientationChageDelay()
+	{
+		yield return new WaitForSeconds(0.3f);
+
+		DockPlayer();
 	}
 
 	private void SetCamera()
@@ -51,42 +63,54 @@ public class SCPlayerDocking : MonoBehaviour
 		renderingCamera = Camera.main;
 	}
 
-	private void SetMaxSize()
+	private void SetPlayerSize()
 	{
 		foreach(Transform child in gameObject.transform) {
 			Vector3 childBounds = child.renderer.bounds.size;
-
-			if(childBounds.x > maxSize.x) {
-				maxSize.x = childBounds.x;
+			
+			if(childBounds.x > playerSize.x) {
+				playerSize.x = childBounds.x;
 			}
 			
-			if(childBounds.y > maxSize.y) {
-				maxSize.y = childBounds.y;
+			if(childBounds.y > playerSize.y) {
+				playerSize.y = childBounds.y;
 			}
 		}
+	}
 
-		Vector3 zeroScreenPoint = renderingCamera.WorldToScreenPoint(Vector3.zero);
-		Vector3 screenBounds = renderingCamera.WorldToScreenPoint(maxSize);
+	private float GetViewWidth()
+	{
+//		return renderingCamera.pixelWidth;
+		return Screen.width;
+	}
 
-		maxSize.x = screenBounds.x - zeroScreenPoint.x;
-		maxSize.y = screenBounds.y - zeroScreenPoint.y;
+	private float GetViewHeight()
+	{
+//		return renderingCamera.pixelHeight;
+		return Screen.height;
 	}
 
 	private void DockPlayer()
 	{
+		Vector3 zeroScreenPoint = renderingCamera.WorldToScreenPoint(Vector3.zero);
+		Vector3 screenBounds = renderingCamera.WorldToScreenPoint(playerSize);
+		
+		maxSize.x = screenBounds.x - zeroScreenPoint.x;
+		maxSize.y = screenBounds.y - zeroScreenPoint.y;
+
 		Vector3 screenPosition = Vector3.zero;
 
 		switch (SoundCloudPlayer.Instance.widgetDocking) {
 		case Docking.TopLeft:
-			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, zPosition));
+			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3(0, GetViewHeight(), zPosition));
 			break;
 
 		case Docking.TopCentre:
-			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3((Screen.width/2) - (maxSize.x/2), Screen.height, zPosition));
+			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3((GetViewWidth()/2) - (maxSize.x/2), GetViewHeight(), zPosition));
 			break;
 
 		case Docking.TopRight:
-			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3(Screen.width - maxSize.x, Screen.height, zPosition));
+			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3(GetViewWidth() - maxSize.x, GetViewHeight(), zPosition));
 			break;
 
 		case Docking.BottomLeft:
@@ -94,17 +118,17 @@ public class SCPlayerDocking : MonoBehaviour
 			break;
 
 		case Docking.BottomCentre:
-			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3((Screen.width/2) - (maxSize.x/2), maxSize.y, zPosition));
+			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3((GetViewWidth()/2) - (maxSize.x/2), maxSize.y, zPosition));
 			break;
 
 		case Docking.BottomRight:
-			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3(Screen.width - maxSize.x, maxSize.y, zPosition));
+			screenPosition = renderingCamera.ScreenToWorldPoint(new Vector3(GetViewWidth() - maxSize.x, maxSize.y, zPosition));
 			break;
 
 		default:
 			break;
 		}
 
-		transform.position = screenPosition;
+		transform.localPosition = screenPosition;
 	}
 }
