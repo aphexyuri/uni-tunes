@@ -8,7 +8,6 @@ __General__
 
 __Player__
 
-- docking
 - screen orientation changes
 
 __Editor__
