@@ -24,7 +24,7 @@ public static class RenderSCAddTrack
 
 			GUILayout.FlexibleSpace();
 
-			if(GUILayout.Button(UniTunesGUITextFactory.GetSoundCloudLogo(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
+			if(GUILayout.Button(UniTunesTextureFactory.GetSoundCloudLogo(), GUIStyle.none, GUILayout.ExpandHeight(true))) {
 				Application.OpenURL("http://developers.soundcloud.com");
 			}
 		}

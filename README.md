@@ -5,6 +5,7 @@ uni-tunes
 
 __General__
 
+- test unitypackage addition to other games
 - version, changelist, copyright
 - AssetStore graphics & submission
 
@@ -12,7 +13,7 @@ __General__
 
 __Player__
 
-- GUI-based player
+- GUI player docking
 
 ---
 

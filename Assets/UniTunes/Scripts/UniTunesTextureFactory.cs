@@ -2,8 +2,9 @@
 using System.Collections;
 using System.IO;
 
-public static class UniTunesGUITextFactory
+public static class UniTunesTextureFactory
 {
+	//for editor
 	public static Texture2D playBtn;
 	public static Texture2D stopBtn;
 	public static Texture2D upBtn;
@@ -128,5 +129,13 @@ public static class UniTunesGUITextFactory
 		}
 		
 		return soundcloudLogo;
+	}
+
+	public static Texture GetPlayerPauseBtn()
+	{
+		//do the loading
+		Texture t = (Texture) Resources.Load("player_btn_pause.png");
+
+		return t;
 	}
 }

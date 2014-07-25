@@ -3,8 +3,11 @@ using System.Collections;
 
 public class GUISCPlayer : MonoBehaviour, ISCPlayer
 {
-	private int playerWidth = 300;
-	private int playerHeight = 80;
+	private int playerWidth = 320;
+	private int playerHeight = 52;
+
+	private static int titleLineLength = 60;
+	private static int ownerLineLength = 40;
 
 	public delegate void OnPlayNextBtnPressed();
 	public static event OnPlayNextBtnPressed OnPlayNextBtnPressedEvt;
@@ -20,6 +23,19 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 
 	private Rect playerArea;
 
+	public Texture pauseBtnTexture;
+	public Texture playBtnTexture;
+	public Texture soundCloudLogoTexture;
+	public Texture2D backgroundTexture;
+
+	public GUIStyle backgroundGUIStyle;
+	public GUIStyle titleTxtGUIStyle;
+	public GUIStyle ownerTxtGUIStyle;
+
+	public GUISkin skin;
+
+
+	#region Unity Lifecycle
 	private void Awake()
 	{
 		playerArea = new Rect(Screen.width - playerWidth, 0, playerWidth, playerHeight);
@@ -34,30 +50,53 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 	private void OnGUI()
 	{
 		SCUIAction uiAction = null;
-		GUILayout.BeginArea(playerArea); {
+
+		if(!playerMaximised) {
+			backgroundGUIStyle.normal.background = null;
+		}
+		else {
+			backgroundGUIStyle.normal.background = backgroundTexture;
+		}
+
+		string titleLine = FormatLine(trackTitle, titleLineLength);
+		string ownerLine = FormatLine(trackOwner, ownerLineLength);
+
+		GUILayout.BeginArea(playerArea, backgroundGUIStyle); {
 			GUILayout.BeginHorizontal(GUILayout.ExpandHeight(true), GUILayout.MaxHeight(2048)); {
 				if(playerMaximised) {
-					if(GUILayout.Button("Pause")) {
-						uiAction = new SCUIAction(SCUIAction.ControlAction.Stop, null);
-					}
+					GUILayout.BeginHorizontal(GUILayout.MaxWidth(69)); {
+						if(GUILayout.Button(pauseBtnTexture, GUIStyle.none, GUILayout.Width(32), GUILayout.Height(42))) {
+							uiAction = new SCUIAction(SCUIAction.ControlAction.Stop, null);
+						}
 
-					if(GUILayout.Button("Play")) {
-						uiAction = new SCUIAction(SCUIAction.ControlAction.Play, null);
+						GUILayout.FlexibleSpace();
+
+						if(GUILayout.Button(playBtnTexture, GUIStyle.none, GUILayout.Width(32), GUILayout.Height(42))) {
+							uiAction = new SCUIAction(SCUIAction.ControlAction.Play, null);
+						}
 					}
+					GUILayout.EndHorizontal();
 
 					GUILayout.BeginVertical(); {
-						GUILayout.Label(trackTitle);
-						GUILayout.Label(trackOwner);
+						GUILayout.FlexibleSpace();
+						GUILayout.Label(titleLine, titleTxtGUIStyle);
+						GUILayout.Label(ownerLine, ownerTxtGUIStyle);
+						GUILayout.FlexibleSpace();
 					}
 					GUILayout.EndVertical();
 				}
-				else {
+//				else {
+					GUILayout.FlexibleSpace();
+//				}
+
+				GUILayout.BeginVertical(); {
+					GUILayout.FlexibleSpace();
+					if(GUILayout.Button(soundCloudLogoTexture, GUIStyle.none, GUILayout.Width(41), GUILayout.Height(28))) {
+						uiAction = new SCUIAction(SCUIAction.ControlAction.MinimizeMaximise, null);
+					}
 					GUILayout.FlexibleSpace();
 				}
-
-				if(GUILayout.Button("SC")) {
-					uiAction = new SCUIAction(SCUIAction.ControlAction.MinimizeMaximise, null);
-				}
+				GUILayout.EndVertical();
 			}
 			GUILayout.EndHorizontal();
 		}
@@ -86,6 +125,17 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 				}
 				break;
 			}
+		}
+	}
+	#endregion
+
+	private string FormatLine(string line, int length)
+	{
+		if(line.Length > length) {
+			return line.Substring(0, length - 3) + "...";
+		}
+		else {
+			return line;
 		}
 	}
 

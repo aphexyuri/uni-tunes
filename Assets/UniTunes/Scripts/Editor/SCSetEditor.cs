@@ -41,7 +41,7 @@ public class SCSetEditor : EditorWindow
 
 	void OnDestroy()
 	{
-		UniTunesGUITextFactory.ClearTextures();
+		UniTunesTextureFactory.ClearTextures();
 	}
 
 	private void OnGUI()
