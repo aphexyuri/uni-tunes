@@ -13,7 +13,8 @@ __General__
 
 __Player__
 
-- GUI player docking
+- GUI player - 
+- GUI player - docking
 
 ---
 

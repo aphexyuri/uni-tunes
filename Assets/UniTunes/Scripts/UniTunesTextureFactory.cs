@@ -130,12 +130,4 @@ public static class UniTunesTextureFactory
 		
 		return soundcloudLogo;
 	}
-
-	public static Texture GetPlayerPauseBtn()
-	{
-		//do the loading
-		Texture t = (Texture) Resources.Load("player_btn_pause.png");
-
-		return t;
-	}
 }

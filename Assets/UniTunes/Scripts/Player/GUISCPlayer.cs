@@ -6,8 +6,8 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 	private int playerWidth = 320;
 	private int playerHeight = 52;
 
-	private static int titleLineLength = 60;
-	private static int ownerLineLength = 40;
+	private static int titleLineLength = 50;
+	private static int ownerLineLength = 30;
 
 	public delegate void OnPlayNextBtnPressed();
 	public static event OnPlayNextBtnPressed OnPlayNextBtnPressedEvt;
@@ -85,9 +85,8 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 					}
 					GUILayout.EndVertical();
 				}
-//				else {
-					GUILayout.FlexibleSpace();
-//				}
+
+				GUILayout.FlexibleSpace();
 
 				GUILayout.BeginVertical(); {
 					GUILayout.FlexibleSpace();
