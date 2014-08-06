@@ -28,17 +28,21 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		Regex rgx = new Regex("[^0-9 . -]");
 		string versionString = rgx.Replace(Application.unityVersion, "");
 		Version version = new Version(versionString);
-		
-		//2D & sprites are not supported prior to 4.3...so we use UnityGUI in that case
+
+		//2D & sprites are not supported prior to 4.3
 		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
+			//gui-based
+			GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
+			guiPlayer.SetActive(true);
+
 			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
-			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
-			spritePlayer.SetActive(false);
 		}
 		else {
+			//sprite-based
+			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
+			spritePlayer.SetActive(true);
+
 			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
-			GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
-			guiPlayer.SetActive(false);
 		}
 
 		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
