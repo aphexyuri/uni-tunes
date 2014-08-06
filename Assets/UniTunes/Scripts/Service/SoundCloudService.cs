@@ -180,9 +180,13 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 		
 		AudioClip audioClip = streamWWW.GetAudioClip(false, true, AudioType.MPEG);
 		
-		while(!audioClip.isReadyToPlay) {
+		if(audioClip == null) { yield break; } //double checking audioClip validity
+
+		while(audioClip != null && !audioClip.isReadyToPlay) {
 			yield return new WaitForSeconds(0.1f);
 		}
+
+		if(audioClip == null) { yield break; } //double checking audioClip validity
 
 		_playbackTrack = track;
 		
