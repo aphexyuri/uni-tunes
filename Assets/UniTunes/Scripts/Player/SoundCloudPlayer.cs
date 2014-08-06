@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 {
@@ -16,7 +17,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		AlwaysMinimized
 	}
 
-	private SCSet _scSet;
+	private SCSetJsonModel _scSet;
 	private ISCPlayer _playerWidget;
 
 	private int _currentPlayIndex = -1;
@@ -30,20 +31,20 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		Version version = new Version(versionString);
 
 		//2D & sprites are not supported prior to 4.3
-//		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
+		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
 			//gui-based
 			GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
 			guiPlayer.SetActive(true);
 
 			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
-//		}
-//		else {
-//			//sprite-based
-//			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
-//			spritePlayer.SetActive(true);
-//
-//			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
-//		}
+		}
+		else {
+			//sprite-based
+			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
+			spritePlayer.SetActive(true);
+
+			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
+		}
 
 		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
 	}
@@ -174,7 +175,7 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 			yield break;
 		}
 		
-		_scSet = JsonFx.Json.JsonReader.Deserialize<SCSet>(www.text);
+		_scSet = JsonFx.Json.JsonReader.Deserialize<SCSetJsonModel>(www.text);
 
 		//makde sure the laod was successful
 		if(_scSet == null) {
@@ -242,6 +243,27 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	}
 
 	/// <summary>
+	/// Plays the set from provided index
+	/// </summary>
+	/// <param name="index">Index.</param>
+	public void PlayFromIndex(int index)
+	{
+		if(_scSet.tracks != null && index <= _scSet.tracks.Count - 1) {
+			_currentPlayIndex = index;
+
+			if(SoundCloudService.Instance.PlaybackTrack != null) {
+				SoundCloudService.Instance.StopPlayback();
+			}
+
+			SCTrack nextTrack = _scSet.GetTrackAtIndex(_currentPlayIndex);
+
+			if(nextTrack != null) {
+				SoundCloudService.Instance.StreamTrack(nextTrack);
+			}
+		}
+	}
+
+	/// <summary>
 	/// Stops the current playback.
 	/// </summary>
 	public void StopPlayback()
@@ -263,6 +285,15 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 	public void MaximisePlayer()
 	{
 		_playerWidget.MaximisePlayer();
+	}
+
+	/// <summary>
+	/// Gets a List<SCTrack> of all tracks in set
+	/// </summary>
+	/// <returns>The tracks.</returns>
+	public List<SCTrack> GetTracks()
+	{
+		return _scSet.tracks;
 	}
 	#endregion
 }
