@@ -28,18 +28,6 @@ public class SCSet : ScriptableObject
 		return true;
 	}
 
-	public SCTrack GetTrackAtIndex(int index)
-	{
-		if(tracks != null) {
-			if(index < tracks.Count) {
-				return tracks[index];
-			}
-		}
-
-		Debug.LogWarning("SCSet.GetTrackAtIndex() - No Tracks available, returning null");
-		return null;
-	}
-
 	public void RemoveTrack(SCTrack track)
 	{
 		if(tracks == null) { return; }

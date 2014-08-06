@@ -9,8 +9,8 @@ __General__
 
 - test unitypackage addition to other games
 - version, changelist, copyright
-- AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
 - youtube video (instructions)
+- AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
 - cleanup debug logs
 
 ---
@@ -41,6 +41,7 @@ __Done__
 - load from json
 - GUI player - text touch open soundcloud url
 - GUI player - docking
+- API play a song at specific index
 
 ---
 
