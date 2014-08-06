@@ -30,20 +30,20 @@ public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
 		Version version = new Version(versionString);
 
 		//2D & sprites are not supported prior to 4.3
-		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
+//		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
 			//gui-based
 			GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
 			guiPlayer.SetActive(true);
 
 			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
-		}
-		else {
-			//sprite-based
-			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
-			spritePlayer.SetActive(true);
-
-			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
-		}
+//		}
+//		else {
+//			//sprite-based
+//			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
+//			spritePlayer.SetActive(true);
+//
+//			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
+//		}
 
 		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
 	}

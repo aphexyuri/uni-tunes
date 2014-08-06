@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GUISCPlayer : MonoBehaviour, ISCPlayer
 {
+	private int[] playerWidths = new int[2] {320, 52};
 	private int playerWidth = 320;
 	private int playerHeight = 52;
 
@@ -34,21 +35,35 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 
 	public GUISkin skin;
 
+	private ScreenOrientation orientation;
+
 
 	#region Unity Lifecycle
 	private void Awake()
 	{
-		playerArea = new Rect(Screen.width - playerWidth, 0, playerWidth, playerHeight);
+		orientation = Screen.orientation;
+
+		SetPlayerArea();
 
 		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized || 
 		   SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized)
 		{
 			playerMaximised = false;
+			playerWidth = playerWidths[1];
+		}
+		else {
+			playerWidth = playerWidths[0];
 		}
 	}
 
 	private void OnGUI()
 	{
+		if(Screen.orientation != orientation) {
+			orientation = Screen.orientation;
+
+			StartCoroutine(OrientationChageDelay());
+		}
+
 		SCUIAction uiAction = null;
 
 		if(!playerMaximised) {
@@ -133,12 +148,60 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 				   SoundCloudPlayer.Instance.playerMode != SoundCloudPlayer.PlayerMode.AlwaysMaximized)
 				{
 					playerMaximised = !playerMaximised;
+
+					if(playerMaximised) {
+						playerWidth = playerWidths[0];
+					}
+					else {
+						playerWidth = playerWidths[1];
+					}
+
+					SetPlayerArea();
 				}
 				break;
 			}
 		}
 	}
 	#endregion
+
+	private IEnumerator OrientationChageDelay()
+	{
+		yield return new WaitForSeconds(0.3f);
+		
+		SetPlayerArea();
+	}
+
+	private void SetPlayerArea()
+	{
+		switch (SoundCloudPlayer.Instance.widgetDocking) {
+		case SCPlayerDocking.Docking.TopLeft:
+			playerArea = new Rect(0, 0, playerWidth, playerHeight);
+			break;
+			
+		case SCPlayerDocking.Docking.TopCentre:
+			playerArea = new Rect((Screen.width/2) - (playerWidth/2), 0, playerWidth, playerHeight);
+			break;
+			
+		case SCPlayerDocking.Docking.TopRight:
+			playerArea = new Rect(Screen.width - playerWidth, 0, playerWidth, playerHeight);
+			break;
+			
+		case SCPlayerDocking.Docking.BottomLeft:
+			playerArea = new Rect(0, Screen.height - playerHeight, playerWidth, playerHeight);
+			break;
+			
+		case SCPlayerDocking.Docking.BottomCentre:
+			playerArea = new Rect((Screen.width/2) - (playerWidth/2), Screen.height - playerHeight, playerWidth, playerHeight);
+			break;
+			
+		case SCPlayerDocking.Docking.BottomRight:
+			playerArea = new Rect(Screen.width - playerWidth, Screen.height - playerHeight, playerWidth, playerHeight);
+			break;
+			
+		default:
+			break;
+		}
+	}
 
 	private string FormatLine(string line, int length)
 	{

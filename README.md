@@ -17,8 +17,7 @@ __General__
 
 __Player__
 
-- GUI player - text touch open soundcloud url
-- GUI player - docking
+- GUI player - test orientation changes
 - Swap (pause/stop Btn)
 
 ---
@@ -39,7 +38,9 @@ __Done__
 - persist editor data on assetdatabase refresh
 - add powered by soundcloud logo to editor (with link to soundcloud)
 - add undo support
-- oad from json
+- load from json
+- GUI player - text touch open soundcloud url
+- GUI player - docking
 
 ---
 
