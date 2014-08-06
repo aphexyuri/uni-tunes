@@ -11,7 +11,7 @@ __General__
 - version, changelist, copyright
 - AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
 - youtube video (instructions)
-- remove debig log on callbacks
+- cleanup debug logs
 
 ---
 
@@ -24,8 +24,6 @@ __Player__
 ---
 
 __Editor__
-
-- load from json
 
 ---
 __Done__

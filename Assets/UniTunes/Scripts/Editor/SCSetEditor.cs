@@ -41,6 +41,8 @@ public class SCSetEditor : EditorWindow
 
 	void OnDestroy()
 	{
+		EditorUtility.SetDirty(scSet);
+
 		UniTunesTextureFactory.ClearTextures();
 	}
 
@@ -64,6 +66,7 @@ public class SCSetEditor : EditorWindow
 				break;
 			}
 
+			//render the tracks
 			windowScrollPos = EditorGUILayout.BeginScrollView(windowScrollPos); {
 				SCUIAction trackUiAction = RenderSCTracks.RenderUI(scSet);
 
@@ -101,7 +104,7 @@ public class SCSetEditor : EditorWindow
 
 			GUILayout.FlexibleSpace();
 
-			//draw save json & loop playlist controls
+			//render save json, load json & loop playlist controls
 			EditorGUILayout.BeginHorizontal(GUI.skin.box, GUILayout.ExpandWidth(true), GUILayout.MaxWidth(2048)); {
 				//loop checkbox
 				if(scSet != null) {
@@ -109,8 +112,43 @@ public class SCSetEditor : EditorWindow
 					scSet.loopPlaylist = EditorGUILayout.Toggle(scSet.loopPlaylist, GUILayout.Width(20));
 					if(loop != scSet.loopPlaylist) { EditorUtility.SetDirty(scSet); }
 
-					GUILayout.Label("Loop Playlist", GUILayout.Width(80));
+					GUILayout.Label(UniTunesConsts.EN_LOOP_CHECKBOX, GUILayout.Width(80));
 				}
+
+				//load json btn
+				GUI.color = Color.yellow;
+				if(GUILayout.Button(UniTunesConsts.EN_LOAD_EXISTING_JSON, GUILayout.Width(160), GUILayout.ExpandHeight(true))) {
+
+					string selectedFile = string.Empty;
+					if(scSet.tracks == null || scSet.tracks.Count == 0) {
+						//skip confirmation and go right to selecting a json file
+						selectedFile = EditorUtility.OpenFilePanel(UniTunesConsts.EN_JSON_FILE_SELECT_TITLE, Application.dataPath, "json");
+					}
+					else {
+						if(EditorUtility.DisplayDialog(UniTunesConsts.EN_JSON_LOAD_TITLE, UniTunesConsts.EN_JSON_LOAD_MSG, "Continue", "Cancel")) {
+							selectedFile = EditorUtility.OpenFilePanel(UniTunesConsts.EN_JSON_FILE_SELECT_TITLE, Application.dataPath, "json");
+						}
+					}
+
+					if(!string.IsNullOrEmpty(selectedFile)) {
+						Debug.Log("Loading .json file at: " + selectedFile);
+						SCSetJsonModel loadedSet = UniTunesUtils.GetSetConfigFromJsonFile<SCSetJsonModel>(selectedFile);
+
+						if(loadedSet.tracks == null || loadedSet.tracks.Count == 0) {
+							//no track info, so we're not doing anything further
+							EditorUtility.DisplayDialog(UniTunesConsts.EN_JSON_INVALID_TITLE, UniTunesConsts.EN_JSON_INVALID_MSG, "Ok");
+						}
+						else {
+							//tracks found, copy to a new SCSet instance
+							SCSet set = ScriptableObject.CreateInstance<SCSet>();
+							set.tracks = loadedSet.tracks;
+							set.loopPlaylist = loadedSet.loopPlaylist;
+
+							ConfigHardSave(set);
+						}
+					}
+				}
+				GUI.color = Color.white;
 
 				//save json btn
 				GUI.color = Color.green;
@@ -159,5 +197,11 @@ public class SCSetEditor : EditorWindow
 				AssetDatabase.CreateAsset(scSet, UniTunesConsts.SC_CONFIG_FILE);
 			}
 		}
+	}
+
+	private void ConfigHardSave(SCSet set)
+	{
+		AssetDatabase.DeleteAsset(UniTunesConsts.SC_CONFIG_FILE);
+		AssetDatabase.CreateAsset(set, UniTunesConsts.SC_CONFIG_FILE);
 	}
 }
