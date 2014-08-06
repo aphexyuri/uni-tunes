@@ -130,7 +130,7 @@ public class SoundCloudService : MonoSingleton<SoundCloudService>
 			yield break;
 		}
 		else {
-			CallbackLog(System.Text.Encoding.UTF8.GetString(request.bytes));
+			CallbackLog("SUCCESS ADDING TRACK: " + System.Text.Encoding.UTF8.GetString(request.bytes));
 
 			SCTrack trackInfo = JsonFx.Json.JsonReader.Deserialize<SCTrack>(System.Text.Encoding.UTF8.GetString(request.bytes));
 

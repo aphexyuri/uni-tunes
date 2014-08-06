@@ -3,23 +3,29 @@ uni-tunes
 
 ###TODO
 
+http://unity3d.com/asset-store/sell-assets
+
 __General__
 
 - test unitypackage addition to other games
 - version, changelist, copyright
-- AssetStore graphics & submission
+- AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
+- youtube video (instructions)
+- remove debig log on callbacks
 
 ---
 
 __Player__
 
-- GUI player - 
+- GUI player - text touch open soundcloud url
 - GUI player - docking
+- Swap (pause/stop Btn)
 
 ---
 
 __Editor__
 
+- load from json
 
 ---
 __Done__
@@ -41,7 +47,6 @@ __Future__
 
 - set autoplay from editor (SoundCloudplayer exposed property)
 - button effect - improve user ui feedback
-- add undo support
 - track search
 - audio upload & streaming
 

@@ -1,4 +1,7 @@
-﻿public class SCUser
+﻿using System;
+
+[Serializable]
+public class SCUser
 {
 	public SCUser() {}
 	

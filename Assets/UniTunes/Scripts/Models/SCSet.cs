@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 
-public class SCSet
+[Serializable]
+public class SCSet : ScriptableObject
 {
 //	[HideInInspector]
 	public List<SCTrack> tracks;

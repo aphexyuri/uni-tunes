@@ -4,20 +4,20 @@ using System;
 
 public static class UniTunesUtils
 {
-	private static string ReadFileToString(string path)
-	{
-		try {
-			StreamReader sr = new StreamReader( path );
-			string content = sr.ReadToEnd();
-			
-			sr.Close();
-			return content;
-		}
-		catch(Exception e) {
-			Debug.LogError("Error reading file: " + path + ": " + e.Message);
-			return null;
-		}
-	}
+//	private static string ReadFileToString(string path)
+//	{
+//		try {
+//			StreamReader sr = new StreamReader( path );
+//			string content = sr.ReadToEnd();
+//			
+//			sr.Close();
+//			return content;
+//		}
+//		catch(Exception e) {
+//			Debug.LogError("Error reading file: " + path + ": " + e.Message);
+//			return null;
+//		}
+//	}
 
 	private static bool WriteStringToFile(string path, string contents)
 	{
@@ -40,31 +40,31 @@ public static class UniTunesUtils
 		}
 	}
 
-	public static string GetSetConfigPath()
+	public static string GetSetJsonConfigPath()
 	{
 		return Path.Combine(Application.streamingAssetsPath, "SCConfig.json");
 	}
 
-	public static void WriteSetConfig(SCSet set)
+	public static void WriteSetJsonConfig(SCSet set)
 	{
 		string fileContents = JsonFx.Json.JsonWriter.Serialize(set);
-		WriteStringToFile(GetSetConfigPath(), fileContents);
+		WriteStringToFile(GetSetJsonConfigPath(), fileContents);
 	}
 
-	public static T GetSetConfig<T>()
-	{
-		string content = ReadFileToString(GetSetConfigPath());
-
-		if(!string.IsNullOrEmpty(content)) {
-			try {
-				T config = (T) JsonFx.Json.JsonReader.Deserialize<T>(content);
-				return config;
-			}
-			catch(Exception e) {
-				Debug.LogError( "Could not deserialize the Build Manifest: " + e.Message );
-			}
-		}
-
-		return default(T);
-	}
+//	public static T GetSetConfig<T>()
+//	{
+//		string content = ReadFileToString(GetSetJsonConfigPath());
+//
+//		if(!string.IsNullOrEmpty(content)) {
+//			try {
+//				T config = (T) JsonFx.Json.JsonReader.Deserialize<T>(content);
+//				return config;
+//			}
+//			catch(Exception e) {
+//				Debug.LogError( "Could not deserialize the Build Manifest: " + e.Message );
+//			}
+//		}
+//
+//		return default(T);
+//	}
 }

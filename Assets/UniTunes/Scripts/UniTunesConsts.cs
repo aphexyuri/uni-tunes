@@ -3,6 +3,8 @@ using System.IO;
 
 public static class UniTunesConsts
 {
+	public static bool DEBUG_LOG = true;
+
 	public static int MIN_WINDOW_WIDTH = 600;
 	public static int MIN_WINDOW_HEIGHT = 400;
 
@@ -21,6 +23,8 @@ public static class UniTunesConsts
 	public static string EN_TRACK_ALREADY_ADDED_MSG = "The track was already added to your Set";
 	public static string EN_RESOLVE_FAIL_TITLE = "Track not found";
 	public static string EN_RESOLVE_FAIL_MSG = "The provided URL was not found on SoundCloud or is not set as 'public'.\n\nPlease verify the provided URL, and try again.";
+	public static string EN_JSON_SAVED_TITLE = "Exporting Config";
+	public static string EN_JSON_SAVED_MSG = "The set .json config file will be exported to {0}";
 
 	public static string EN_WAITING_FOR = "WAITING FOR";
 	public static string EN_AUDIO_STREAM = "AUDIO STREAM";
@@ -33,6 +37,7 @@ public static class UniTunesConsts
 	public static string EN_BTN_STOP = "Stop";
 	public static string EN_BTN_REMOVE = "Remove";
 	public static string EN_BTN_VALIDATE_ADD = "Validate & Add";
+	public static string EN_BTN_SAVE_JSON = "Export Json Config";
 
 	public static string ConfigPath()
 	{

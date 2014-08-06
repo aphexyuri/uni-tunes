@@ -151,8 +151,6 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 		}
 		
 		url = string.Empty;
-		
-//		SetTrackInfoInternal();
 	}
 	
 	public void SetTrackInfo(SCTrack track)
@@ -162,8 +160,6 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 			trackOwner = track.user.username;
 			url = track.permalink_url;
 		}
-		
-//		SetTrackInfoInternal();
 	}
 
 	public void MinimizePlayer()

@@ -78,18 +78,18 @@ public class SCSetEditor : EditorWindow
 					break;
 
 				case SCUIAction.ControlAction.Remove:
+					Undo.RecordObject(scSet, "Remove track");
 					scSet.RemoveTrack((SCTrack) trackUiAction.Data);
-					SaveConfig();
 					break;
 
 				case SCUIAction.ControlAction.MoveUp:
+					Undo.RecordObject(scSet, "Track order up");
 					scSet.Move((SCTrack) trackUiAction.Data, -1);
-					SaveConfig();
 					break;
 
 				case SCUIAction.ControlAction.MoveDown:
+					Undo.RecordObject(scSet, "Track order down");
 					scSet.Move((SCTrack) trackUiAction.Data, 1);
-					SaveConfig();
 					break;
 
 				default:
@@ -101,15 +101,24 @@ public class SCSetEditor : EditorWindow
 
 			GUILayout.FlexibleSpace();
 
+			//draw save json & loop playlist controls
 			EditorGUILayout.BeginHorizontal(GUI.skin.box, GUILayout.ExpandWidth(true), GUILayout.MaxWidth(2048)); {
 				//loop checkbox
 				if(scSet != null) {
-
-					GUILayout.Label("Loop Playlist");
 					bool loop = scSet.loopPlaylist;
 					scSet.loopPlaylist = EditorGUILayout.Toggle(scSet.loopPlaylist, GUILayout.Width(20));
-					if(loop != scSet.loopPlaylist) { SaveConfig(); }
+					if(loop != scSet.loopPlaylist) { EditorUtility.SetDirty(scSet); }
+
+					GUILayout.Label("Loop Playlist", GUILayout.Width(80));
 				}
+
+				//save json btn
+				GUI.color = Color.green;
+				if(GUILayout.Button(UniTunesConsts.EN_BTN_SAVE_JSON, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true))) {
+					EditorUtility.DisplayDialog(UniTunesConsts.EN_JSON_SAVED_TITLE, string.Format(UniTunesConsts.EN_JSON_SAVED_MSG, UniTunesUtils.GetSetJsonConfigPath()), "Ok");
+					UniTunesUtils.WriteSetJsonConfig(scSet);
+				}
+				GUI.color = Color.white;
 			}
 			EditorGUILayout.EndHorizontal();
 		}
@@ -119,17 +128,18 @@ public class SCSetEditor : EditorWindow
 	private void OnResolveCallback(SCServiceResponse response)
 	{
 		if(response.isSuccess) {
+			/*
 			Debug.Log(string.Format("DebugGUI.OnResolveCallback() - SUCCESS! {0}, streamable:{1}, from url:{2}",
 			                        response.trackInfo.title,
 			                        response.trackInfo.streamable,
 			                        response.trackInfo.stream_url)
 			);
+			*/
 
+			Undo.RecordObject(scSet, "Track added");
 			if(!scSet.AddTrack(response.trackInfo)) {
 				EditorUtility.DisplayDialog(UniTunesConsts.EN_TRACK_ALREADY_ADDED_TITLE, UniTunesConsts.EN_TRACK_ALREADY_ADDED_MSG, "Ok");
 			}
-
-			SaveConfig();
 		}
 		else {
 			Debug.Log("DebugGUI.OnResolveCallback(): " + response.errorMsg);
@@ -140,22 +150,14 @@ public class SCSetEditor : EditorWindow
 
 	private void LoadSetConfig()
 	{
-		string configPath = UniTunesUtils.GetSetConfigPath();
+		if(scSet == null) {
+			scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_FILE, typeof(SCSet));
 
-		if(File.Exists(configPath)) {
-			scSet = UniTunesUtils.GetSetConfig<SCSet>();
-		}
-		else {
-			scSet = new SCSet();
-			UniTunesUtils.WriteSetConfig(scSet);
-		}
-
-	}
-
-	private void SaveConfig()
-	{
-		if(scSet != null) {
-			UniTunesUtils.WriteSetConfig(scSet);
+			if(scSet == null) {
+				Debug.Log("creating new scSet");
+				scSet = ScriptableObject.CreateInstance<SCSet>();
+				AssetDatabase.CreateAsset(scSet, UniTunesConsts.SC_CONFIG_FILE);
+			}
 		}
 	}
 }

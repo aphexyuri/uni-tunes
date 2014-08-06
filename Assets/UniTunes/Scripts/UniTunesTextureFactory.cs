@@ -30,6 +30,11 @@ public static class UniTunesTextureFactory
 		stopBtn = null;
 		upBtn = null;
 		downBtn = null;
+		upFullBtn = null;
+		downFullBtn = null;
+		upDownBlank = null;
+		removeBtn = null;
+		soundcloudLogo = null;
 	}
 
 	public static Texture2D GetRemoveBtnTexture()
