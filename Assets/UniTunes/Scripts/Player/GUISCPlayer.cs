@@ -79,8 +79,20 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 
 					GUILayout.BeginVertical(); {
 						GUILayout.FlexibleSpace();
-						GUILayout.Label(titleLine, titleTxtGUIStyle);
-						GUILayout.Label(ownerLine, ownerTxtGUIStyle);
+						if(GUILayout.Button(titleLine, titleTxtGUIStyle)) {
+							if(!string.IsNullOrEmpty(url)) {
+								Application.OpenURL(url);
+							}
+						}
+
+						if(GUILayout.Button(ownerLine, ownerTxtGUIStyle)) {
+							if(!string.IsNullOrEmpty(url)) {
+								Application.OpenURL(url);
+							}
+						}
+
+//						GUILayout.Label(titleLine, titleTxtGUIStyle);
+//						GUILayout.Label(ownerLine, ownerTxtGUIStyle);
 						GUILayout.FlexibleSpace();
 					}
 					GUILayout.EndVertical();
