@@ -38,6 +38,8 @@ __Done__
 - document API methods
 - persist editor data on assetdatabase refresh
 - add powered by soundcloud logo to editor (with link to soundcloud)
+- add undo support
+- oad from json
 
 ---
 

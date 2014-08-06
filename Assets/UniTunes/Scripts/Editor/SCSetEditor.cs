@@ -153,8 +153,10 @@ public class SCSetEditor : EditorWindow
 				//save json btn
 				GUI.color = Color.green;
 				if(GUILayout.Button(UniTunesConsts.EN_BTN_SAVE_JSON, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true))) {
-					EditorUtility.DisplayDialog(UniTunesConsts.EN_JSON_SAVED_TITLE, string.Format(UniTunesConsts.EN_JSON_SAVED_MSG, UniTunesUtils.GetSetJsonConfigPath()), "Ok");
-					UniTunesUtils.WriteSetJsonConfig(scSet);
+					if(EditorUtility.DisplayDialog(UniTunesConsts.EN_JSON_SAVED_TITLE, string.Format(UniTunesConsts.EN_JSON_SAVED_MSG, UniTunesUtils.GetSetJsonConfigPath()), "Ok", "Cancel")) {
+						string fileContents = JsonFx.Json.JsonWriter.Serialize(new SCSetJsonModel(scSet));
+						UniTunesUtils.WriteStringToFile(UniTunesUtils.GetSetJsonConfigPath(), fileContents);
+					}
 				}
 				GUI.color = Color.white;
 			}
@@ -175,6 +177,7 @@ public class SCSetEditor : EditorWindow
 			*/
 
 			Undo.RecordObject(scSet, "Track added");
+
 			if(!scSet.AddTrack(response.trackInfo)) {
 				EditorUtility.DisplayDialog(UniTunesConsts.EN_TRACK_ALREADY_ADDED_TITLE, UniTunesConsts.EN_TRACK_ALREADY_ADDED_MSG, "Ok");
 			}

@@ -19,7 +19,7 @@ public static class UniTunesUtils
 		}
 	}
 
-	private static bool WriteStringToFile(string path, string contents)
+	public static bool WriteStringToFile(string path, string contents)
 	{
 		FileInfo fi = new FileInfo(path);
 		Directory.CreateDirectory(fi.Directory.ToString());
@@ -43,12 +43,6 @@ public static class UniTunesUtils
 	public static string GetSetJsonConfigPath()
 	{
 		return Path.Combine(Application.streamingAssetsPath, "SCConfig.json");
-	}
-
-	public static void WriteSetJsonConfig(SCSet set)
-	{
-		string fileContents = JsonFx.Json.JsonWriter.Serialize(set);
-		WriteStringToFile(GetSetJsonConfigPath(), fileContents);
 	}
 
 	public static T GetSetConfigFromJsonFile<T>(string filePath)
