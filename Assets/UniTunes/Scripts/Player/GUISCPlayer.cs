@@ -43,8 +43,6 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 	{
 		orientation = Screen.orientation;
 
-		SetPlayerArea();
-
 		if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.StartMinimized || 
 		   SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized)
 		{
@@ -54,6 +52,8 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 		else {
 			playerWidth = playerWidths[0];
 		}
+
+		SetPlayerArea();
 	}
 
 	private void OnGUI()
