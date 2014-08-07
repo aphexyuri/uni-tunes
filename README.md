@@ -1,7 +1,14 @@
 UniTunes - v1.0
 =========
 
-UnitTunes enabled you to effortlessly build and playback of soundcloud sets/playlist in your games.
+UnitTunes enabled you to effortlessly build and playback soundcloud sets/playlist in your games. Please view our Toutube videos for a howto guide on setup, configuration and usage.
+
+---
+
+Notes
+===
+
+- UniTunes needs JsonFx to work, but don't be alarmed, it is opensource and inlcuded in the unitypackage. For reference purposes, the form in use can be found at [git@github.com:scopely/jsonfx-1.x.git](git@github.com:scopely/jsonfx-1.x.git)
 
 ---
 
@@ -13,7 +20,11 @@ Features planned for future releases
 - Support for other audio streaming services (Bandcamp, Last.fm, etc)
 - Ability to upload audio to hosted service, for inclusion in set/playlist
 
+Please vote on, or request features at XXX
+
 ---
+
+
 
 Usage
 ===
@@ -61,6 +72,7 @@ http://unity3d.com/asset-store/sell-assets
 - youtube video (instructions)
 - AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
 - cleanup debug logs
+- Add feature vote/request survey link to 'Features planned for future releases' section
 
 ---
 
