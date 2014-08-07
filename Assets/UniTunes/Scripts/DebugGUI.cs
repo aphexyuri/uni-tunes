@@ -13,23 +13,8 @@ public class DebugGUI : MonoBehaviour
 		{
 			SoundCloudPlayer.Instance.LoadSet(false);
 		}
-
-//		if(GUI.Button(new Rect(0, 0, Screen.width, screenButtonHeight), "Resolve Only"))
-//		{
-//			SoundCloudService.Instance.Resolve("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
-//		}
-//		
-//		if(GUI.Button(new Rect(0, 100, Screen.width, screenButtonHeight), "Resolve & Play"))
-//		{
-////			SCService.Instance.ResolveAndPlay("https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo", OnResolveCallback, OnLogCallback);
-//		}
-//		
-//		if(GUI.Button(new Rect(0, 200, Screen.width, screenButtonHeight), "Stop Playback"))
-//		{
-//			SoundCloudService.Instance.StopPlayback();
-//		}
 		
-		GUI.TextArea(new Rect(0, Screen.height - 300, Screen.width, 300), logLine);
+//		GUI.TextArea(new Rect(0, Screen.height - 300, Screen.width, 300), logLine);
 	}
 	
 	private void OnResolveCallback(SCServiceResponse response)
