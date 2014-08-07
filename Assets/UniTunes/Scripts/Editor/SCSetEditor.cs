@@ -131,7 +131,7 @@ public class SCSetEditor : EditorWindow
 					}
 
 					if(!string.IsNullOrEmpty(selectedFile)) {
-						Debug.Log("Loading .json file at: " + selectedFile);
+						Debug.Log("SCSetEditor - Loading .json file at: " + selectedFile);
 						SCSetJsonModel loadedSet = UniTunesUtils.GetSetConfigFromJsonFile<SCSetJsonModel>(selectedFile);
 
 						if(loadedSet.tracks == null || loadedSet.tracks.Count == 0) {
@@ -169,7 +169,7 @@ public class SCSetEditor : EditorWindow
 	{
 		if(response.isSuccess) {
 			/*
-			Debug.Log(string.Format("DebugGUI.OnResolveCallback() - SUCCESS! {0}, streamable:{1}, from url:{2}",
+			Debug.Log(string.Format("SCSetEditor DebugGUI.OnResolveCallback() - SUCCESS! {0}, streamable:{1}, from url:{2}",
 			                        response.trackInfo.title,
 			                        response.trackInfo.streamable,
 			                        response.trackInfo.stream_url)
@@ -183,7 +183,7 @@ public class SCSetEditor : EditorWindow
 			}
 		}
 		else {
-			Debug.Log("DebugGUI.OnResolveCallback(): " + response.errorMsg);
+			Debug.Log("SCSetEditor, resolve Error : " + response.errorMsg);
 
 			EditorUtility.DisplayDialog(UniTunesConsts.EN_RESOLVE_FAIL_TITLE, UniTunesConsts.EN_RESOLVE_FAIL_MSG + "\n\n" + response.errorMsg, "Ok");
 		}
@@ -195,7 +195,6 @@ public class SCSetEditor : EditorWindow
 			scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_FILE, typeof(SCSet));
 
 			if(scSet == null) {
-				Debug.Log("creating new scSet");
 				scSet = ScriptableObject.CreateInstance<SCSet>();
 				AssetDatabase.CreateAsset(scSet, UniTunesConsts.SC_CONFIG_FILE);
 			}

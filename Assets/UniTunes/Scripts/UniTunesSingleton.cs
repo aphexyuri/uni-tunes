@@ -22,7 +22,7 @@ public abstract class UniTunesSingleton<T> : MonoBehaviour where T : UniTunesSin
                     // Problem during the creation, this should not happen
                     if( m_Instance == null )
                     {
-                        Debug.LogError("MonoSingleton: Problem during the creation of " + typeof(T).ToString());
+						Debug.LogError("UniTunesSingleton: Problem during the creation of " + typeof(T).ToString());
                     }
                 }
             }

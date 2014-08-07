@@ -14,7 +14,7 @@ public static class UniTunesUtils
 			return content;
 		}
 		catch(Exception e) {
-			Debug.LogError("Error reading file: " + path + ": " + e.Message);
+			Debug.LogError("UniTunesUtils - Error reading file: " + path + ": " + e.Message);
 			return null;
 		}
 	}
@@ -29,13 +29,13 @@ public static class UniTunesUtils
 			sw.Write(contents);
 			sw.Close();
 			
-			Debug.Log("File Saved: " + path + "\n" + contents);
+			Debug.Log("UniTunesUtils - File Saved: " + path + "\n" + contents);
 			
 			return true;
 		}
 		catch(Exception e) {
 			sw.Close();
-			Debug.LogError("Error writing file: " + e.Message);
+			Debug.LogError("UniTunesUtils - Error writing file: " + e.Message);
 			return false;
 		}
 	}
@@ -55,7 +55,7 @@ public static class UniTunesUtils
 				return config;
 			}
 			catch(Exception e) {
-				Debug.LogError( "Could not deserialize the Build Manifest: " + e.Message );
+				Debug.LogError( "UniTunesUtils - Could not deserialize the Build Manifest: " + e.Message );
 			}
 		}
 

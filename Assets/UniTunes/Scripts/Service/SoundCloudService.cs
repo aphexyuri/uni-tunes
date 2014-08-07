@@ -64,7 +64,7 @@ public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 
 	private void CallbackLog(string msg)
 	{
-		Debug.Log(msg);
+		Debug.Log("SoundCloudService: " + msg);
 		
 		if(_logCallback != null) {
 			_logCallback(msg);
@@ -155,7 +155,7 @@ public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 	private IEnumerator StreamTrackRoutine(SCTrack track)
 	{
 		if(Instance == null) {
-			Debug.Log("Instance is null");
+			Debug.Log("SoundCloudService - Instance is null");
 		}
 		
 		Status = ServiceStatus.Busy;
@@ -166,7 +166,7 @@ public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 		streamWWW = new WWW(streamUrl);
 		
 		if(streamWWW.error != null) {
-			CallbackLog("Error streaming track:" + streamWWW.error);
+			CallbackLog("SoundCloudService - Error streaming track:" + streamWWW.error);
 
 			if(OnTrackStreamFailureEvt != null) {
 				OnTrackStreamFailureEvt();
@@ -243,7 +243,7 @@ public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 		CancelInvoke("TrackComplete");
 
 		if(Status == ServiceStatus.Busy) {
-			Debug.LogWarning("Service is busy - ignoring request");
+			Debug.LogWarning("SoundCloudService Service is busy - ignoring request");
 			return;
 		}
 
