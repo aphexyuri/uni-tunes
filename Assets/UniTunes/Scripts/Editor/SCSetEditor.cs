@@ -18,7 +18,7 @@ public class SCSetEditor : EditorWindow
 	
 	
 	#region EditorWindow Lifecycle
-	[MenuItem("Window/SoundCloud Set")]
+	[MenuItem("Window/UniTunes/SoundCloud Set Editor")]
 	private static void ShowWindow()
 	{
 		SCSetEditor win = EditorWindow.GetWindow<SCSetEditor>("SCSetEditor");
@@ -33,7 +33,7 @@ public class SCSetEditor : EditorWindow
 	/// Validates the Menu Item based on if the Editor is Playing.
 	/// </summary>
 	/// <returns><c>true</c>, if RT was validated, <c>false</c> otherwise.</returns>
-	[MenuItem("Window/SoundCloud Set", true)]
+	[MenuItem("Window/UniTunes/SoundCloud Set Editor", true)]
 	private static bool ValidateRTD ()
 	{
 		return !EditorApplication.isPlaying;
