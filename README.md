@@ -8,8 +8,9 @@ UnitTunes enabled you to effortlessly build and playback soundcloud sets/playlis
 Notes
 ===
 
-- UniTunes needs JsonFx to work, but don't be alarmed, it is opensource and included in the unitypackage. For reference purposes, the form in use can be found at [git@github.com:scopely/jsonfx-1.x.git](git@github.com:scopely/jsonfx-1.x.git)
+- UniTunes needs JsonFx to work, but don't be alarmed, it is opensource and included in the unitypackage. For reference purposes, the form in use can be found at https://github.com/scopely/jsonfx-1.x (git@github.com:scopely/jsonfx-1.x.git)
 - If using Unity 4.3 +, the SoundCloud Player will be constructed with 2D Sprites. IF you are using a Unity version prior to 4.3, the SoundCloud Player will use Unity OnGUI
+- Please submit any feedback or feature request at https://docs.google.com/forms/d/1y4yQQXLmAG5ZCZC7PQxCBceTxLcOdMbDNsHkYNGtcqg/viewform?usp=send_form
 
 ---
 
@@ -19,7 +20,6 @@ Features planned for future releases
 - Improve player UI feedback (button press effects)
 - SoundCloud track search from editor window
 - Support for other audio streaming services (Bandcamp, Last.fm, etc)
-- Ability to upload audio to hosted service, for inclusion in set/playlist
 - Support for Unity GUI
 
 Please vote on, or request features at XXX
@@ -73,7 +73,6 @@ http://unity3d.com/asset-store/sell-assets
 
 - youtube video (instructions)
 - AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
-- Add feature vote/request survey link to 'Features planned for future releases' section
 
 ---
 
@@ -97,3 +96,4 @@ http://unity3d.com/asset-store/sell-assets
 - test unitypackage addition to other games
 - GUI player - test orientation changes
 - cleanup debug logs
+- Add feature vote/request survey link to 'Features planned for future releases' section
