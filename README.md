@@ -71,8 +71,6 @@ Change-list
 
 http://unity3d.com/asset-store/sell-assets
 
-- GUI player - test orientation changes
-- cleanup debug logs
 - youtube video (instructions)
 - AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
 - Add feature vote/request survey link to 'Features planned for future releases' section
@@ -97,3 +95,5 @@ http://unity3d.com/asset-store/sell-assets
 - GUI player - docking
 - API play a song at specific index
 - test unitypackage addition to other games
+- GUI player - test orientation changes
+- cleanup debug logs
