@@ -84,7 +84,12 @@ public class SoundCloudPlayer : UniTunesSingleton<SoundCloudPlayer>
 	#region event handlers
 	private void HandlePauseBtnPressed()
 	{
-		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_PRESS_BUTTON, UniTunesConsts.EN_TO_START_PLAYBACK);
+		if(_scSet != null) {
+			_playerWidget.SetPlayerMessage(UniTunesConsts.EN_PRESS_BUTTON, UniTunesConsts.EN_TO_START_PLAYBACK);
+		}
+		else {
+			_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
+		}
 
 		if(_currentPlayIndex == -1) {
 			PlaySet();
