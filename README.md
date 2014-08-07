@@ -71,6 +71,7 @@ Change-list
 
 http://unity3d.com/asset-store/sell-assets
 
+- move events not working on game (slotsvacation)
 - youtube video (instructions)
 - AssetStore graphics & submission http://unity3d.com/asset-store/sell-assets/submission-guidelines
 
