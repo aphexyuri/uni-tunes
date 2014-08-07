@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(AudioSource))]
-public class SoundCloudService : MonoSingleton<SoundCloudService>
+public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 {
 	public delegate void OnServiceStatusChange(ServiceStatus status);
 	public static event OnServiceStatusChange OnServiceStatusChangeEvt;

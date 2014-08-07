@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SoundCloudPlayer : MonoSingleton<SoundCloudPlayer>
+public class SoundCloudPlayer : UniTunesSingleton<SoundCloudPlayer>
 {
 	public SCPlayerDocking.Docking widgetDocking = SCPlayerDocking.Docking.None;
 	public PlayerMode playerMode = PlayerMode.StartMaximized;
