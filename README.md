@@ -16,6 +16,7 @@ Notes
 
 Features planned for future releases
 ===
+- Unity GUI (upon Unity 4.6 release)
 - Specify auto-play from editor
 - Improve player UI feedback (button press effects)
 - SoundCloud track search from editor window
