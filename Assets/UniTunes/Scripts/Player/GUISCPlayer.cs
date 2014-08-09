@@ -158,6 +158,11 @@ public class GUISCPlayer : MonoBehaviour, ISCPlayer
 
 					SetPlayerArea();
 				}
+				else if(SoundCloudPlayer.Instance.playerMode == SoundCloudPlayer.PlayerMode.AlwaysMinimized) {
+					if(!string.IsNullOrEmpty(url)) {
+						Application.OpenURL(url);
+					}
+				}
 				break;
 			}
 		}
