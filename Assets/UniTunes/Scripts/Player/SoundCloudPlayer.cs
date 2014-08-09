@@ -25,35 +25,16 @@ public class SoundCloudPlayer : UniTunesSingleton<SoundCloudPlayer>
 	#region Unity Lifecycle
 	void Start()
 	{
-		//get the version expression
-		Regex rgx = new Regex("[^0-9 . -]");
-		string versionString = rgx.Replace(Application.unityVersion, "");
-		Version version = new Version(versionString);
+		GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
+		guiPlayer.SetActive(true);
 
-		//2D & sprites are not supported prior to 4.3
-//		if(version.Major < 4 || (version.Major == 4 && version.Minor < 3)) {
-			//gui-based
-			GameObject guiPlayer = transform.Find("GUIPlayer").gameObject;
-			guiPlayer.SetActive(true);
-
-			_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
-//		}
-//		else {
-//			//sprite-based
-//			GameObject spritePlayer = transform.Find("SpritePlayer").gameObject;
-//			spritePlayer.SetActive(true);
-//
-//			_playerWidget = gameObject.GetComponentInChildren<SpriteSCPlayer>();
-//		}
+		_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
 
 		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
 	}
 
 	void OnEnable()
 	{
-		SpriteSCPlayer.OnPauseBtnPressedEvt += HandlePauseBtnPressed;
-		SpriteSCPlayer.OnPlayNextBtnPressedEvt += HandlePlayNextBtnPressed;
-
 		GUISCPlayer.OnPauseBtnPressedEvt += HandlePauseBtnPressed;
 		GUISCPlayer.OnPlayNextBtnPressedEvt += HandlePlayNextBtnPressed;
 
@@ -64,9 +45,6 @@ public class SoundCloudPlayer : UniTunesSingleton<SoundCloudPlayer>
 
 	void OnDisable()
 	{
-		SpriteSCPlayer.OnPauseBtnPressedEvt -= HandlePauseBtnPressed;
-		SpriteSCPlayer.OnPlayNextBtnPressedEvt -= HandlePlayNextBtnPressed;
-
 		GUISCPlayer.OnPauseBtnPressedEvt -= HandlePauseBtnPressed;
 		GUISCPlayer.OnPlayNextBtnPressedEvt -= HandlePlayNextBtnPressed;
 
