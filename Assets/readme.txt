@@ -42,12 +42,16 @@ Usage
 	- Bottom-Left
 	- Bottom-Centre
 	- Bottom-Right
-7. Use the following API to control playback
+7. Set the "Player Startup Mode". The possible selections are:
+	1. Manual_ViaScript - control set loading and playback start via script (see #9)
+	2. Auto_StreamingAssets - automatically loads set config from StreamingAssets, and starts playback on load completion
+	3. Auto_Url - automatically loads set config from the url provided in "Auto Startup Url", and starts playback on load completion
+8. Use the following API to control playback
 	- __LoadSet(string configUrl, bool autoPlay)__
 	  Use this method if you have your config file online and wish to specify the URL of the Json Config
 	- __LoadSet(bool autoPlay)__
 	- __PlaySet()__
-8. Additional API methods available
+9. Additional API methods available
 	- __PlayNext()__
 	- __PlayFromIndex(int index)__
 	- __StopPlayback()__

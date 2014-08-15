@@ -10,7 +10,18 @@ public class SoundCloudPlayer : UniTunesSingleton<SoundCloudPlayer>
 	public SCPlayerDocking.Docking widgetDocking = SCPlayerDocking.Docking.None;
 	public PlayerMode playerMode = PlayerMode.StartMaximized;
 
-	public enum PlayerMode {
+	public PlayerStatupMode playerStartupMode = PlayerStatupMode.Manual_ViaScript;
+	public string autoStartupUrl = string.Empty;
+
+	public enum PlayerStatupMode
+	{
+		Manual_ViaScript,
+		Auto_StreamingAssets,
+		Auto_Url
+	}
+
+	public enum PlayerMode
+	{
 		StartMaximized,
 		StartMinimized,
 		AlwaysMaximized,
@@ -31,6 +42,19 @@ public class SoundCloudPlayer : UniTunesSingleton<SoundCloudPlayer>
 		_playerWidget = gameObject.GetComponentInChildren<GUISCPlayer>();
 
 		_playerWidget.SetPlayerMessage(UniTunesConsts.EN_WAITING_FOR, UniTunesConsts.EN_PLAYLIST_CONFIG);
+
+		//if the player startup is not manual, load config & start playback
+		if(playerStartupMode == PlayerStatupMode.Auto_StreamingAssets) {
+			LoadSet(true);
+		}
+		else if(playerStartupMode == PlayerStatupMode.Auto_Url) {
+			if(!string.IsNullOrEmpty(autoStartupUrl)) {
+				LoadSet(autoStartupUrl, true);
+			}
+			else {
+				Debug.LogWarning("SoundCloudPlayer - you have selected Auto_Url as Player Startup Mode. Please provide a URL");
+			}
+		}
 	}
 
 	void OnEnable()
