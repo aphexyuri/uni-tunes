@@ -8,6 +8,7 @@ UnitTunes enabled you to effortlessly build and playback soundcloud sets/playlis
 Notes
 ===
 
+- Currently only supported on iOS and Android platforms
 - UniTunes needs JsonFx to work, but don't be alarmed, it is opensource and included in the unitypackage. For reference purposes, the form in use can be found at https://github.com/scopely/jsonfx-1.x (git@github.com:scopely/jsonfx-1.x.git)
 - Currently, the SoundCloudPlayer uses OnGUI for rendering the player UI - a future updated will include Unity GUI support
 - Please submit any feedback or feature request at https://docs.google.com/forms/d/1y4yQQXLmAG5ZCZC7PQxCBceTxLcOdMbDNsHkYNGtcqg/viewform?usp=send_form
