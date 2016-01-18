@@ -8,7 +8,7 @@ public static class UniTunesConsts
 	public static int MIN_WINDOW_HEIGHT = 400;
 
 	//misc soundcloud values
-	public static string SC_CLIENT_ID = "YOUR_SOUNDCLOUD_CLIENT_ID";
+	public static string SC_CLIENT_ID = "<YOUR_SOUNDCLOUD_CLIENT_ID>";
 	public static string SC_API = "https://api.soundcloud.com";
 	public static string SC_TEST_TRACK = "https://soundcloud.com/markus-wormstorm/feat-spoek-mathambo";
 	public static string SC_METHOD_RESOLVE = "/resolve.json";
