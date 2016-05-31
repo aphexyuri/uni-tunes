@@ -66,7 +66,7 @@ public class SCPlayerDocking : MonoBehaviour
 	private void SetPlayerSize()
 	{
 		foreach(Transform child in gameObject.transform) {
-			Vector3 childBounds = child.renderer.bounds.size;
+			Vector3 childBounds = child.GetComponent<Renderer>().bounds.size;
 			
 			if(childBounds.x > playerSize.x) {
 				playerSize.x = childBounds.x;
