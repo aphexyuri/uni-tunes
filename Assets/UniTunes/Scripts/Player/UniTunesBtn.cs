@@ -26,7 +26,7 @@ public class UniTunesBtn : MonoBehaviour
 			
 			Collider2D c2d = Physics2D.OverlapPoint(touchPos);
 			
-			if(collider2D == c2d) {
+			if(GetComponent<Collider2D>() == c2d) {
 				OnBtnPressedEvt(name);
 			}
 		}

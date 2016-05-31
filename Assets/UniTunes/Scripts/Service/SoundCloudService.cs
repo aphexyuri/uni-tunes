@@ -182,7 +182,7 @@ public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 		
 		if(audioClip == null) { yield break; } //double checking audioClip validity
 
-		while(audioClip != null && !audioClip.isReadyToPlay) {
+		while(audioClip != null && audioClip.loadState != AudioDataLoadState.Loaded) {
 			yield return new WaitForSeconds(0.1f);
 		}
 
@@ -195,7 +195,7 @@ public class SoundCloudService : UniTunesSingleton<SoundCloudService>
 //		CallbackLog("audioClip.samples:" + audioClip.samples);
 		
 		//audioSource = gameObject.AddComponent<AudioSource>(); //auto component via annotation
-		audioSource = audio;
+		audioSource = GetComponent<AudioSource>();
 		audioSource.clip = audioClip;
 		audioSource.Play();
 		

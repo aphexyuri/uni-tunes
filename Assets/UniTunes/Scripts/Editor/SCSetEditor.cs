@@ -24,7 +24,7 @@ public class SCSetEditor : EditorWindow
 		SCSetEditor win = EditorWindow.GetWindow<SCSetEditor>("SCSetEditor");
 		
 		if(win != null) {
-			win.title = "SoundCloud Set";
+			win.titleContent = new GUIContent("SoundCloud Set");
 			win.minSize = new Vector2(UniTunesConsts.MIN_WINDOW_WIDTH, UniTunesConsts.MIN_WINDOW_HEIGHT);
 		}
 	}
@@ -192,7 +192,7 @@ public class SCSetEditor : EditorWindow
 	private void LoadSetConfig()
 	{
 		if(scSet == null) {
-			scSet = (SCSet) Resources.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_FILE, typeof(SCSet));
+			scSet = (SCSet) AssetDatabase.LoadAssetAtPath(UniTunesConsts.SC_CONFIG_FILE, typeof(SCSet));
 
 			if(scSet == null) {
 				scSet = ScriptableObject.CreateInstance<SCSet>();
